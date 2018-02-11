@@ -115,6 +115,23 @@ class AccountController extends Controller
     public function update(AccountRequest $request, Account $account)
     {
         $this->getUser()->hasPermission(['update'], 'accounts');
+
+        $account->setConnection($this->getUser()->getRole());
+
+        $account->balance = $request->input('balance', 0);
+
+        $decodedHistory = json_decode($account->history);
+        array_push($decodedHistory, array(
+            'transactionName' => 'Updated balance',
+            'newBalance' => $account->balance
+        ));
+        $account->history = json_encode($decodedHistory);
+
+        if ($account->save()) {
+            return redirect()->route('accounts.show', ['idAccount' => $account->id])->with('success', 'Account successfully updated');
+        } else {
+            return back()->withErrors('An error occurred while saving the account. Please try again later.');
+        }
     }
 
     /**
