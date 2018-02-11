@@ -15,7 +15,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $this->getUser()->hasPermission('select', 'accounts');
+        $this->getUser()->hasPermission(['select'], 'accounts');
 
         // Set the mysql connection we'll use using the user role
         $account = new Account();
@@ -36,7 +36,7 @@ class AccountController extends Controller
      */
     public function create()
     {
-        $this->getUser()->hasPermission('insert', 'accounts');
+        $this->getUser()->hasPermission(['insert'], 'accounts');
 
         return view('accounts.create');
     }
@@ -49,7 +49,7 @@ class AccountController extends Controller
      */
     public function store(StoreAccount $request)
     {
-        $this->getUser()->hasPermission('insert', 'accounts');
+        $this->getUser()->hasPermission(['insert', 'update'], 'accounts');
 
         // Set the connection to use after having checked the permissions
         $account = new Account();
@@ -75,6 +75,7 @@ class AccountController extends Controller
      */
     public function show(Account $account)
     {
+        $this->getUser()->hasPermission(['select'], 'accounts');
         // Decode transaction history
         $account->history = json_decode($account->history);
 
@@ -89,7 +90,7 @@ class AccountController extends Controller
      */
     public function edit(Account $account)
     {
-        //
+        $this->getUser()->hasPermission(['select'], 'accounts');
     }
 
     /**
@@ -101,7 +102,7 @@ class AccountController extends Controller
      */
     public function update(Request $request, Account $account)
     {
-        //
+        $this->getUser()->hasPermission(['update'], 'accounts');
     }
 
     /**
@@ -112,6 +113,6 @@ class AccountController extends Controller
      */
     public function destroy(Account $account)
     {
-        //
+        $this->getUser()->hasPermission(['delete'], 'accounts');
     }
 }
