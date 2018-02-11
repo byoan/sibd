@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreAccount;
+use App\Http\Requests\AccountRequest;
 
 class AccountController extends Controller
 {
@@ -44,10 +44,10 @@ class AccountController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\StoreAccount  $request
+     * @param  \Illuminate\Http\AccountRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAccount $request)
+    public function store(AccountRequest $request)
     {
         $this->getUser()->hasPermission(['insert', 'update'], 'accounts');
 
@@ -96,11 +96,11 @@ class AccountController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\AccountRequest  $request
      * @param  \App\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Account $account)
+    public function update(AccountRequest $request, Account $account)
     {
         $this->getUser()->hasPermission(['update'], 'accounts');
     }
