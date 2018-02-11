@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    You are logged in dear {{ $user->pseudo }}! Your role is {{ $user->getRole() }}
                 </div>
             </div>
         </div>
