@@ -70,12 +70,17 @@ class AccountController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Account  $account
+     * @param int  $idAccount
      * @return \Illuminate\Http\Response
      */
-    public function show(Account $account)
+    public function show(int $idAccount)
     {
         $this->getUser()->hasPermission(['select'], 'accounts');
+
+        $account = new Account();
+        $account->setConnection($this->getUser()->getRole());
+        $account = $account->findOrFail($idAccount);
+
         // Decode transaction history
         $account->history = json_decode($account->history);
 
@@ -88,9 +93,16 @@ class AccountController extends Controller
      * @param  \App\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function edit(Account $account)
+    public function edit(int $idAccount)
     {
         $this->getUser()->hasPermission(['select'], 'accounts');
+
+        $account = new Account();
+        $account->setConnection($this->getUser()->getRole());
+
+        $account = $account->findOrFail($idAccount);
+
+        return view('accounts.edit', ['account' => $account]);
     }
 
     /**
