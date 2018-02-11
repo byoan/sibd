@@ -42,18 +42,20 @@ class User extends Authenticatable
      * Checks if the user's role is allowed to perform the received action
      * on the received target according to the configuration file permissions.php
      *
-     * @param string $action The action to perform, such as select, update or delete
+     * @param array $actions The action(s) to perform, such as select, update or delete
      * @param string $target The target table, such as horse or user
      * @return boolean
      *
      * @throws \Exception In case the user role isn't defined in the configuration file
      */
-    public function hasPermission(string $action, string $target)
+    public function hasPermission(array $actions, string $target)
     {
         $rolePermissions = Config::get('permissions.' . $this->getRole());
         if (!empty($rolePermissions)) {
-            if (!(isset($rolePermissions[$target]) && in_array($action, $rolePermissions[$target])) && !$rolePermissions == '*') {
-                abort(403, 'You are not allowed to access this page');
+            foreach ($actions as $action) {
+                if (!(isset($rolePermissions[$target]) && in_array($action, $rolePermissions[$target])) && !$rolePermissions == '*') {
+                    abort(403, 'You are not allowed to access this page');
+                }
             }
         } else {
             throw new \Exception('Invalid user role');
