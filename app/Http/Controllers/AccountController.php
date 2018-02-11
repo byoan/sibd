@@ -137,11 +137,19 @@ class AccountController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Account  $account
+     * @param  int  $account
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Account $account)
+    public function destroy(int $idAccount)
     {
         $this->getUser()->hasPermission(['delete'], 'accounts');
+
+        $account = new Account();
+        $account->setConnection($this->getUser()->getRole());
+        if ($account->delete($idAccount)) {
+            return redirect()->route('accounts.index')->with('success', 'Account succesfully deleted');
+        } else {
+            return back()->with('errors', 'An error occurred while deleting the account');
+        }
     }
 }
