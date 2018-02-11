@@ -31,6 +31,7 @@ class CreateUsersTable extends Migration
             $table->date('inscriptionDate');
             $table->date('connectionDate');
             $table->date('planning');
+            $table->string('role');
             $table->integer('idAccount')->unsigned();
             $table->foreign('idAccount')->references('id')->on('accounts');
             $table->timestamps();
