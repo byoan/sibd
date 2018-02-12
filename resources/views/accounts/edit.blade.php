@@ -11,6 +11,9 @@
     </div>
 @endif
 
+<h1>Account #{{ $account->id }} edition</h1>
+<hr />
+
 <form action="/accounts/{{ $account->id }}" method="POST">
     @method('PUT')
     {{ csrf_field() }}
