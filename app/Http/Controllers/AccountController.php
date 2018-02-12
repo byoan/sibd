@@ -46,7 +46,7 @@ class AccountController extends Controller
      */
     public function store(AccountRequest $request)
     {
-        $this->getUser()->hasPermission(['insert', 'update'], 'accounts');
+        $this->getUser()->hasPermission(['insert'], 'accounts');
 
         // Set the connection to use after having checked the permissions
         $account = new Account();
