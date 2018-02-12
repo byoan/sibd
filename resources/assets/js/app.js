@@ -8,6 +8,12 @@
 require('./bootstrap');
 
 // window.Vue = require('vue');
+$(document).ready(function () {
+    $('.table').DataTable({
+        paging: false,
+        info: false,
+    });
+});
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -12,7 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/jquery.dataTables.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -67,10 +67,5 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    {{--  <script>
-        $(document).ready(function() {
-            $('.table').DataTable();
-        });
-    </script>  --}}
 </body>
 </html>
