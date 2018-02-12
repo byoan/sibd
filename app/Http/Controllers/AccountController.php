@@ -18,10 +18,6 @@ class AccountController extends Controller
     {
         $this->getUser()->hasPermission(['select'], 'accounts');
 
-        // Set the mysql connection we'll use using the user role
-        $account = new Account();
-        $account->setConnection($this->getUser()->getRole());
-
         // Retrieve the full account list
         $accountsList = DB::connection($this->getUser()->getRole())->table('accounts')->paginate(20);
 
