@@ -146,8 +146,10 @@ class AccountController extends Controller
 
         $account = new Account();
         $account->setConnection($this->getUser()->getRole());
-        if ($account->delete($idAccount)) {
-            return redirect()->route('accounts.index')->with('success', 'Account succesfully deleted');
+        $account = $account->findOrFail($idAccount);
+
+        if ($account->delete()) {
+            return redirect()->route('accounts.index')->with('success', 'Account successfully deleted');
         } else {
             return back()->with('errors', 'An error occurred while deleting the account');
         }
