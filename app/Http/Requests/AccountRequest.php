@@ -27,7 +27,7 @@ class AccountRequest extends FormRequest
     public function rules()
     {
         return [
-            'balance' => 'required|numeric'
+            'balance' => 'required|numeric|between:0.0,99.999'
         ];
     }
 }
