@@ -1,3 +1,6 @@
+@extends('layouts.app')
+
+@section('content')
 <h1>Account details</h1>
 
 <h2>Account id : {{ $account->id }}</h2>
@@ -12,3 +15,4 @@
         @endforeach
     @endif
 </ul>
+@endsection
