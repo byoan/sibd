@@ -13,11 +13,13 @@ $(document).ready(function () {
         paging: false,
         info: false,
     });
-    $('tr').on('click', function () {
+    $('tr td#checkbox').on('click', function () {
         if ($(this).hasClass('selected')) {
             $(this).find('input[type="checkbox"]').prop('checked', false)
             $(this).removeClass('selected')
-            $('button[name="deleteSelectedRows').hide()
+            if ($('table').find('input:checked').length <= 0) {
+                $('button[name="deleteSelectedRows').hide()
+            }
         } else {
             $(this).find('input[type="checkbox"]').prop('checked', true)
             $(this).addClass('selected')
