@@ -10,7 +10,18 @@
 
 <h1>Account details</h1>
 <hr />
-<h2>Id : {{ $account->id }}</h2>
+<div class="detailsEditButtonRow">
+    <h2>Id : {{ $account->id }}</h2>
+    <div class="detailsButtonsContainer">
+        <a class="btn btn-dark" href="{{ route('accounts.edit', $account->id) }}">Edit</a>
+        <form method="POST" action="{{ route('accounts.destroy', $account->id) }}">
+            {{ csrf_field() }}
+            @method('DELETE')
+            <input type="hidden" name="id" value="{{ $account->id }}">
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+    </div>
+</div>
 <h2>Balance : {{ $account->balance }} LederCoin</h2>
 <br />
 <div>

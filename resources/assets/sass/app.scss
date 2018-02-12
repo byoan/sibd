@@ -31,3 +31,15 @@
 .table thead th {
     border-bottom: 0;
 }
+.detailsEditButtonRow {
+    display: flex;
+    justify-content: space-between;
+
+    .detailsButtonsContainer {
+        display: flex;
+
+        .btn-dark {
+            height: 2.3rem;
+        }
+    }
+}
