@@ -34,6 +34,7 @@ class CreateUsersTable extends Migration
             $table->string('role');
             $table->integer('idAccount')->unsigned();
             $table->foreign('idAccount')->references('id')->on('accounts');
+            $table->rememberToken();
             $table->timestamps();
         });
     }
