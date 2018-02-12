@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    Accounts list
+    <h1>Accounts list</h1>
 
     @if (session('success'))
         <div class="alert alert-success">
@@ -9,8 +9,42 @@
         </div>
     @endif
 
-    @foreach ($accounts as $account)
-        <h1>{{ $account->id }}</h1>
-        <h2>{{ $account->balance}}</h2>
-    @endforeach
+    @if (session('errors'))
+        <div class="alert alert-danger">
+            {{ session('errors') }}
+        </div>
+    @endif
+
+    @if (empty($accounts))
+        <h4>No accounts available</h4>
+    @else
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Balance</th>
+                <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($accounts as $id => $account)
+                    <tr>
+                        <td>{{ $account->id }}</td>
+                        <td>{{ $account->balance}}</td>
+                        <td class="tdActions">
+                            <a href="{{ route('accounts.show', ['id' => $account->id]) }}" class="btn btn-info">View</a>
+                            <a href="{{ route('accounts.edit', ['id' => $account->id]) }}" class="btn btn-dark">Edit</a>
+                            <form method="POST" action="{{ route('accounts.destroy', ['id' => $account->id]) }}">
+                                {{ csrf_field() }}
+                                @method('DELETE')
+                                <input type="hidden" name="id" value="{{ $account->id }}">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        {{ $accounts->links() }}
+    @endif
 @endsection

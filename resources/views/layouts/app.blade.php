@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/jquery.dataTables.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -59,12 +60,17 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4 container">
             @yield('content')
         </main>
     </div>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    {{--  <script>
+        $(document).ready(function() {
+            $('.table').DataTable();
+        });
+    </script>  --}}
 </body>
 </html>

@@ -13,6 +13,7 @@
         </ul>
     </div>
 @endif
+
 <form action="/accounts" method="POST">
     {{ csrf_field() }}
     <label for="balance">

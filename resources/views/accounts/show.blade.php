@@ -2,17 +2,36 @@
 
 @section('content')
 <h1>Account details</h1>
-
-<h2>Account id : {{ $account->id }}</h2>
-<h2>Account balance : {{ $account->balance }}</h2>
-<h2>Account history</h2>
-<ul>
+<hr />
+<h2>Id : {{ $account->id }}</h2>
+<h2>Balance : {{ $account->balance }} LederCoin</h2>
+<br />
+<div>
+    <h2>Transaction history</h2>
     @if (empty($account->history))
-    <li>No transactions available</li>
+        <h4>No transactions available</h4>
     @else
-        @foreach ($account->history as $id => $row)
-            <li>{{ $row->transactionName }} : {{ $row->newBalance }}</li>
-        @endforeach
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">Transaction name</th>
+                <th scope="col">New LederCoin balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($account->history as $id => $row)
+                    <tr>
+                        <td>{{ $row->transactionName }}</td>
+                        <td>{{ $row->newBalance }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     @endif
-</ul>
+</div>
+<script>
+    $(document).ready( function () {
+        $('.table').DataTable();
+    });
+</script>
 @endsection
