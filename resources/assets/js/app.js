@@ -13,6 +13,17 @@ $(document).ready(function () {
         paging: false,
         info: false,
     });
+    $('tr').on('click', function () {
+        if ($(this).hasClass('selected')) {
+            $(this).find('input[type="checkbox"]').prop('checked', false)
+            $(this).removeClass('selected')
+            $('button[name="deleteSelectedRows').hide()
+        } else {
+            $(this).find('input[type="checkbox"]').prop('checked', true)
+            $(this).addClass('selected')
+            $('button[name="deleteSelectedRows').show()
+        }
+    });
 });
 
 /**
