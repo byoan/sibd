@@ -2,14 +2,15 @@
 
 @section('content')
 
+<h1>Account details</h1>
+<hr />
+
 @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
 @endif
 
-<h1>Account details</h1>
-<hr />
 <div class="detailsEditButtonRow">
     <h2>Id : {{ $account->id }}</h2>
     <div class="detailsButtonsContainer">
