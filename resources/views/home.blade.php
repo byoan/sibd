@@ -15,6 +15,9 @@
                     @endif
 
                     You are logged in dear {{ $user->pseudo }}! Your role is {{ $user->getRole() }}
+                    <p>
+                        <a href="{{ route('accounts.index') }}">Accounts</a>
+                    </p>
                 </div>
             </div>
         </div>
