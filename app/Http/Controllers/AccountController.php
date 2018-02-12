@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Db;
 use App\Http\Requests\AccountRequest;
 
 class AccountController extends Controller
@@ -22,7 +23,7 @@ class AccountController extends Controller
         $account->setConnection($this->getUser()->getRole());
 
         // Retrieve the full account list
-        $accountsList = $account::all();
+        $accountsList = DB::connection($this->getUser()->getRole())->table('accounts')->paginate(20);
 
         return view('accounts.index', array(
             'accounts' => $accountsList
