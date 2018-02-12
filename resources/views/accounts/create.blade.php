@@ -3,6 +3,7 @@
 @section('content')
 
 <h1>Create Account</h1>
+<hr />
 
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -16,9 +17,11 @@
 
 <form action="/accounts" method="POST">
     {{ csrf_field() }}
-    <label for="balance">
-    <input type="number" placeholder="Account balance, in LederCoin" name="balance">
+    <div class="form-group">
+        <label for="balance">Balance</label>
+        <input class="form-control" type="number" placeholder="Account balance, in LederCoin" name="balance">
+    </div>
 
-    <button type="submit">Submit</button>
+    <button class="btn btn-success" type="submit">Submit</button>
 </form>
 @endsection
