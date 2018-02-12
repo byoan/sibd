@@ -19,3 +19,12 @@
 .tdActions .btn {
     margin-right: 1rem;
 }
+.pagination {
+    li.active span.page-link {
+        background-color: #16a2b8;
+        border-color: #16a2b8;
+    }
+    a.page-link {
+        color: #16a2b8;
+    }
+}
