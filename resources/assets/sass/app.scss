@@ -34,6 +34,9 @@
 .table tbody tr.selected {
     background-color: rgba(0,0,0,.075);
 }
+.table tr td#checkbox {
+    cursor: pointer;
+}
 .headerIndexContainer {
     display: flex;
     justify-content: space-between;

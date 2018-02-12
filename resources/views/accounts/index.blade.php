@@ -36,7 +36,7 @@
             <tbody>
                 @foreach ($accounts as $id => $account)
                     <tr>
-                        <td><div class="form-check"><input class="form-check-input" type="checkbox" name="{{$account->id}}"></div></td>
+                        <td id="checkbox"><div class="form-check"><input class="form-check-input" type="checkbox" name="{{$account->id}}"></div></td>
                         <td>{{ $account->id }}</td>
                         <td>{{ $account->balance}}</td>
                         <td class="tdActions">
