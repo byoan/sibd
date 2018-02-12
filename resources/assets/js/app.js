@@ -24,6 +24,33 @@ $(document).ready(function () {
             $('button[name="deleteSelectedRows').show()
         }
     });
+    $('button[name="deleteSelectedRows').on('click', function () {
+        let result = []
+        let table = $(this).attr('data-id-table')
+
+        $('table').find('input:checked').each(function (e, input) {
+            // Collect selected ids
+            result.push($(input).prop('name'))
+        })
+
+        if (result.length <= 0) {
+            alert('You must select at least one element to delete')
+            return
+        }
+
+        $.ajax({
+            url: baseUrl + '/' + table + '/0',
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                list: result
+            }
+        }).done(function (response) {
+            window.location = baseUrl + '/' + response
+        });
+    });
 });
 
 /**

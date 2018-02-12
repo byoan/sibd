@@ -137,18 +137,44 @@ class AccountController extends Controller
      * @param  int  $account
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $idAccount)
+    public function destroy(Request $request, int $idAccount)
     {
         $this->getUser()->hasPermission(['delete'], 'accounts');
 
-        $account = new Account();
-        $account->setConnection($this->getUser()->getRole());
-        $account = $account->findOrFail($idAccount);
+        if ($idAccount !== 0) {
+            $account = new Account();
+            $account->setConnection($this->getUser()->getRole());
+            $account = $account->findOrFail($idAccount);
 
-        if ($account->delete()) {
-            return redirect()->route('accounts.index')->with('success', 'Account successfully deleted');
+            if ($account->delete()) {
+                return redirect()->route('accounts.index')->with('success', 'Account successfully deleted');
+            } else {
+                return back()->with('errors', 'An error occurred while deleting the account');
+            }
         } else {
-            return back()->with('errors', 'An error occurred while deleting the account');
+            $accountsToDelete = $request->input('list');
+            $result = true;
+
+            foreach($accountsToDelete as $key => $accountId) {
+                $account = new Account();
+                $account->setConnection($this->getUser()->getRole());
+                $account = $account->findOrFail($accountId);
+
+                if ($account->delete()) {
+                    continue;
+                } else {
+                    $result = false;
+                    break;
+                }
+            }
+
+            if ($result) {
+                $request->session()->flash('success', 'The selected accounts were successfully deleted');
+            } else {
+                $request->session()->flash('errors', 'An error occurred while deleting the selected accounts');
+            }
+
+            return 'accounts';
         }
     }
 }
