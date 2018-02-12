@@ -54,9 +54,10 @@ class AccountController extends Controller
 
         // Assign data
         $account->balance = $request->input('balance', 0);
-        $account->history = json_encode(array(
-            'intialBalance' => $account->balance
-        ));
+        $account->history = json_encode(array(array(
+            'transactionName' => 'Initial deposit',
+            'newBalance' => $account->balance
+        )));
         if ($account->save()) {
             return redirect()->route('accounts.index')->with('success', 'Account successfully created');
         } else {
