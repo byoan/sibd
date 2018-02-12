@@ -15,7 +15,7 @@ class CreateAccountsTable extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('history');
+            $table->text('history');
             $table->float('balance', 5, 3);
             $table->timestamps();
         });
