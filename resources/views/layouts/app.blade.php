@@ -66,6 +66,7 @@
     </div>
 
     <!-- Scripts -->
+    <script>let baseUrl = "{{ env('APP_URL') }}"</script>
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
