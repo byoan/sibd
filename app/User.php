@@ -61,4 +61,9 @@ class User extends Authenticatable
             throw new \Exception('Invalid user role');
         }
     }
+
+    public function account()
+    {
+        return $this->hasOne('App\Account', 'id', 'idAccount');
+    }
 }
