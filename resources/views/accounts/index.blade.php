@@ -1,7 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Accounts list</h1>
+    <div class="headerIndexContainer">
+        <h1>Accounts list</h1>
+        <div class="headerIndexButtonsContainer">
+            <a class="btn btn-success" href="{{ route('accounts.create') }}" title="Create">Create</a>
+            <button name="deleteSelectedRows" class="btn btn-danger" style="display:none" data-id-table="accounts" title="Delete selected rows">Delete selected rows</button>
+        </div>
+    </div>
 
     @if (session('success'))
         <div class="alert alert-success">
