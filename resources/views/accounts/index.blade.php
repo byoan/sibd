@@ -27,6 +27,7 @@
         <table class="table">
             <thead>
                 <tr>
+                <th scope="col"></th>
                 <th scope="col">Id</th>
                 <th scope="col">Balance</th>
                 <th scope="col">Actions</th>
@@ -35,6 +36,7 @@
             <tbody>
                 @foreach ($accounts as $id => $account)
                     <tr>
+                        <td><div class="form-check"><input class="form-check-input" type="checkbox" name="{{$account->id}}"></div></td>
                         <td>{{ $account->id }}</td>
                         <td>{{ $account->balance}}</td>
                         <td class="tdActions">

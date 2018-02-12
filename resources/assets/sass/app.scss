@@ -31,6 +31,17 @@
 .table thead th {
     border-bottom: 0;
 }
+.table tbody tr.selected {
+    background-color: rgba(0,0,0,.075);
+}
+.headerIndexContainer {
+    display: flex;
+    justify-content: space-between;
+
+    .btn-success {
+        height: 2.3rem;
+    }
+}
 .detailsEditButtonRow {
     display: flex;
     justify-content: space-between;
