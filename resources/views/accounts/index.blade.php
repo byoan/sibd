@@ -42,12 +42,6 @@
                         <td class="tdActions">
                             <a href="{{ route('accounts.show', ['id' => $account->id]) }}" class="btn btn-info">View</a>
                             <a href="{{ route('accounts.edit', ['id' => $account->id]) }}" class="btn btn-dark">Edit</a>
-                            <form method="POST" action="{{ route('accounts.destroy', ['id' => $account->id]) }}">
-                                {{ csrf_field() }}
-                                @method('DELETE')
-                                <input type="hidden" name="id" value="{{ $account->id }}">
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
                         </td>
                     </tr>
                 @endforeach
