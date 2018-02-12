@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+
+<h1>Account #{{ $account->id }} edition</h1>
+<hr />
+
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -10,9 +14,6 @@
         </ul>
     </div>
 @endif
-
-<h1>Account #{{ $account->id }} edition</h1>
-<hr />
 
 <form action="/accounts/{{ $account->id }}" method="POST">
     @method('PUT')
