@@ -20,7 +20,7 @@
     {{ csrf_field() }}
     <div class="form-group">
         <label for="balance">Balance</label>
-        <input class="form-control" type="number" name="balance" value="{{$account->balance}}" step="0.001">
+        <input class="form-control" type="number" id="balance" name="balance" value="{{$account->balance}}" step="0.001">
     </div>
     <div class="form-group transactionsHistoryList">
         <label for="history">Transaction history</label>
