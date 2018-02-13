@@ -12,7 +12,7 @@
 @endif
 
 <div class="detailsEditButtonRow">
-    <h2>Id : {{ $account->id }} - Owner : <a href="{{ route('users.show', $account->user->id)}}" title="Owner">{{ $account->user->pseudo }}</a></h2>
+    <h2>Id : {{ $account->id }} - Owner : <a href="{{ route('users.show', $account->user->id)}}" title="Owner">{{ $account->user->username }}</a></h2>
     <div class="detailsButtonsContainer">
         <a class="btn btn-dark" href="{{ route('accounts.edit', $account->id) }}">Edit</a>
         <form method="POST" action="{{ route('accounts.destroy', $account->id) }}">
