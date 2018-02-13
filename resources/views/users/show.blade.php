@@ -28,6 +28,7 @@
 <div>
     <h3>Informations</h3>
     <p>Description : {{ $user->description }}</p>
+    <p>Role : {{ $user->role }}</p>
     <p>Sex : {{ $user->sex }}</p>
     <p>Birth date : {{ $user->birthDate }}</p>
     <p>Address : {{ $user->address }}</p>
