@@ -77,13 +77,23 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\UserRequest  $request
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $this->getUser()->hasPermission(['update'], 'users');
+
+        $user->setConnection($this->getUser()->getRole->name);
+
+        $user->fill($request->all());
+
+        if ($user->save()) {
+            return redirect()->route('users.show', ['idUser' => $user->id])->with('success', 'User successfully updated');
+        } else {
+            return back()->withErrors('An error occurred while saving the user. Please try again later.');
+        }
     }
 
     /**
