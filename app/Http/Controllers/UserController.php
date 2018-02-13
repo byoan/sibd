@@ -116,8 +116,44 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Request $request, int $idUser)
     {
-        //
+        $this->getUser()->hasPermission(['delete'], 'users');
+
+        if ($idUser !== 0) {
+            $user = new User();
+            $user->setConnection($this->getUser()->getRole->name);
+            $user = $user->findOrFail($idUser);
+
+            if ($user->delete()) {
+                return redirect()->route('user.index')->with('success', 'User successfully deleted');
+            } else {
+                return back()->with('errors', 'An error occurred while deleting the user');
+            }
+        } else {
+            $usersToDelete = $request->input('list');
+            $result = true;
+
+            foreach ($usersToDelete as $key => $userId) {
+                $user = new User();
+                $user->setConnection($this->getUser()->getRole->name);
+                $user = $user->findOrFail($userId);
+
+                if ($user->delete()) {
+                    continue;
+                } else {
+                    $result = false;
+                    break;
+                }
+            }
+
+            if ($result) {
+                $request->session()->flash('success', 'The selected users were successfully deleted');
+            } else {
+                $request->session()->flash('errors', 'An error occurred while deleting the selected users');
+            }
+
+            return 'users';
+        }
     }
 }
