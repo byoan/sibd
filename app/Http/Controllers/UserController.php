@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Db;
 
 class UserController extends Controller
 {
@@ -14,7 +15,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $this->getUser()->hasPermission(['select'], 'users');
+
+        // Retrieve the full users list
+        $usersList = DB::connection($this->getUser()->getRole())->table('users')->paginate(20);
+
+        return view('users.index', array(
+            'users' => $usersList
+        ));
     }
 
     /**
@@ -41,12 +49,18 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  int  $idUser
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(int $idUser)
     {
-        //
+        $this->getUser()->hasPermission(['select'], 'users');
+
+        $user = new User();
+        $user->setConnection($this->getUser()->getRole());
+        $user = $user->findOrFail($idUser);
+
+        return view('users.show', ['user' => $user]);
     }
 
     /**
