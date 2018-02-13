@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Db;
@@ -67,12 +68,23 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  int  $idUser
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(int $idUser)
     {
-        //
+        $this->getUser()->hasPermission(['select'], 'users');
+
+        $user = new User();
+        $user->setConnection($this->getUser()->getRole->name);
+
+        $user = $user->findOrFail($idUser);
+        $roles = Role::all();
+
+        return view('users.edit', array(
+            'user' => $user,
+            'roles' => $roles
+        ));
     }
 
     /**
