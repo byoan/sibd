@@ -66,4 +66,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Account', 'id', 'idAccount');
     }
+
+    public function planning()
+    {
+        return $this->hasMany('App\AutoTask', 'idUser', 'id');
+    }
 }

@@ -18,6 +18,7 @@ class CreateAutoTasksTable extends Migration
             $table->string('taskAction');
             $table->integer('frequency');
             $table->integer('idObject');
+            $table->integer('idUser');
             $table->timestamps();
         });
     }
