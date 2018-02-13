@@ -19,7 +19,7 @@ class AccountController extends Controller
         $this->getUser()->hasPermission(['select'], 'accounts');
 
         // Retrieve the full account list
-        $accountsList = DB::connection($this->getUser()->getRole())->table('accounts')->paginate(20);
+        $accountsList = DB::connection($this->getUser()->getRole->name)->table('accounts')->paginate(20);
 
         return view('accounts.index', array(
             'accounts' => $accountsList
@@ -50,7 +50,7 @@ class AccountController extends Controller
 
         // Set the connection to use after having checked the permissions
         $account = new Account();
-        $account->setConnection($this->getUser()->getRole());
+        $account->setConnection($this->getUser()->getRole->name);
 
         // Assign data
         $account->balance = $request->input('balance', 0);
@@ -76,7 +76,7 @@ class AccountController extends Controller
         $this->getUser()->hasPermission(['select'], 'accounts');
 
         $account = new Account();
-        $account->setConnection($this->getUser()->getRole());
+        $account->setConnection($this->getUser()->getRole->name);
         $account = $account->findOrFail($idAccount);
 
         // Decode transaction history
@@ -96,7 +96,7 @@ class AccountController extends Controller
         $this->getUser()->hasPermission(['select'], 'accounts');
 
         $account = new Account();
-        $account->setConnection($this->getUser()->getRole());
+        $account->setConnection($this->getUser()->getRole->name);
 
         $account = $account->findOrFail($idAccount);
 
@@ -114,7 +114,7 @@ class AccountController extends Controller
     {
         $this->getUser()->hasPermission(['update'], 'accounts');
 
-        $account->setConnection($this->getUser()->getRole());
+        $account->setConnection($this->getUser()->getRole->name);
 
         $account->balance = $request->input('balance', 0);
 
@@ -144,7 +144,7 @@ class AccountController extends Controller
 
         if ($idAccount !== 0) {
             $account = new Account();
-            $account->setConnection($this->getUser()->getRole());
+            $account->setConnection($this->getUser()->getRole->name);
             $account = $account->findOrFail($idAccount);
 
             if ($account->delete()) {
@@ -156,9 +156,9 @@ class AccountController extends Controller
             $accountsToDelete = $request->input('list');
             $result = true;
 
-            foreach($accountsToDelete as $key => $accountId) {
+            foreach ($accountsToDelete as $key => $accountId) {
                 $account = new Account();
-                $account->setConnection($this->getUser()->getRole());
+                $account->setConnection($this->getUser()->getRole->name);
                 $account = $account->findOrFail($accountId);
 
                 if ($account->delete()) {

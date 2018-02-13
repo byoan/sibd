@@ -14,10 +14,11 @@
                         </div>
                     @endif
 
-                    You are logged in dear {{ $user->pseudo }}! Your role is {{ $user->getRole() }}
-                    <p>
-                        <a href="{{ route('accounts.index') }}">Accounts</a>
-                    </p>
+                    You are logged in dear {{ $user->username }}! Your role is {{ $user->getRole->name }}
+                    <div class="container">
+                        <p><a href="{{ route('accounts.index') }}">Accounts</a></p>
+                        <p><a href="{{ route('users.index') }}">Users</a></p>
+                    </div>
                 </div>
             </div>
         </div>

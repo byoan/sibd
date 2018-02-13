@@ -18,7 +18,7 @@ class UserController extends Controller
         $this->getUser()->hasPermission(['select'], 'users');
 
         // Retrieve the full users list
-        $usersList = DB::connection($this->getUser()->getRole())->table('users')->paginate(20);
+        $usersList = DB::connection($this->getUser()->getRole->name)->table('users')->paginate(20);
 
         return view('users.index', array(
             'users' => $usersList
@@ -57,7 +57,7 @@ class UserController extends Controller
         $this->getUser()->hasPermission(['select'], 'users');
 
         $user = new User();
-        $user->setConnection($this->getUser()->getRole());
+        $user->setConnection($this->getUser()->getRole->name);
         $user = $user->findOrFail($idUser);
 
         return view('users.show', ['user' => $user]);
