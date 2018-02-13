@@ -34,7 +34,20 @@
     <p>Phone : {{ $user->phone }}</p>
     <p>Website : <a href="{{ $user->website }}" title="Website">{{ $user->website }}</a></p>
     <p>Last connection : {{ date('d-m-Y H:m:s', strtotime($user->connectionDate)) }}</p>
+    <p>Last recorded IP address : {{ $user->ipAddress }}</p>
     <p>Inscription date : {{ date('d-m-Y H:m:s', strtotime($user->inscriptionDate)) }}</p>
+
+    <hr />
+    <h3>Planning</h3>
+    @if (empty($user->planning))
+        <h4>This user has no automated task planned</h4>
+    @else
+        <ul>
+            @foreach ($user->planning as $id => $task)
+                <li>"{{ $task->action }}", {{ $task->frequency }} times a day</li>
+            @endforeach
+        </ul>
+    @endif
 
     <hr />
     <h3>Account</h3>
