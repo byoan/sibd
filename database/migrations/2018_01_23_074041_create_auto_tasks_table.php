@@ -15,7 +15,7 @@ class CreateAutoTasksTable extends Migration
     {
         Schema::create('auto_tasks', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('taskAction');
+            $table->string('action');
             $table->integer('frequency');
             $table->integer('idObject');
             $table->integer('idUser');
