@@ -40,8 +40,9 @@
 
     <hr />
     <h3>Planning</h3>
-    @if (empty($user->planning))
-        <h4>This user has no automated task planned</h4>
+
+    @if ($user->planning->count() <= 0)
+        <strong>This user has no automated task planned</strong>
     @else
         <ul>
             @foreach ($user->planning as $id => $task)
