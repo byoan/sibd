@@ -50,7 +50,7 @@ class User extends Authenticatable
      */
     public function hasPermission(array $actions, string $target)
     {
-        $rolePermissions = Config::get('permissions.' . $this->getRole());
+        $rolePermissions = Config::get('permissions.' . Role::find($this->role)->name);
         if (!empty($rolePermissions)) {
             foreach ($actions as $action) {
                 if (!(isset($rolePermissions[$target]) && in_array($action, $rolePermissions[$target])) && !$rolePermissions == '*') {
