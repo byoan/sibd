@@ -23,7 +23,7 @@
         </form>
     </div>
 </div>
-<h2>{{ $user->firstName }} {{ $user->lastName }}</h2>
+<h2>Name : {{ $user->firstName }} {{ $user->lastName }}</h2>
 <br />
 <div>
     <h3>Informations</h3>
