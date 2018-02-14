@@ -32,9 +32,9 @@ class StoreUserRequest extends FormRequest
             'role' => 'required|digits:1',
             'sex' => 'required|alpha|max:1',
             'birthDate' => 'required|date',
-            'address' => 'alpha_num|max:100',
-            'phone' => 'digits:10',
-            'website' => 'url',
+            'address' => 'nullable|alpha_num|max:100',
+            'phone' => 'nullable|digits:10',
+            'website' => 'nullable|url',
         ];
     }
 }
