@@ -35,18 +35,33 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $this->getUser()->hasPermission(['insert'], 'users');
+        $roles = Role::all();
+
+        return view('users.create', ['roles' => $roles]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\StoreUserRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        //
+        $this->getUser()->hasPermission(['insert'], 'users');
+        // Set the connection to use after having checked the permissions
+        $user = new User();
+        $user->setConnection($this->getUser()->getRole->name);
+
+        $user->fill($request->all());
+        $user->inscriptionDate = date('Y-m-d h:m:s');
+
+        if ($user->save()) {
+            return redirect()->route('users.index')->with('success', 'User successfully created');
+        } else {
+            return back()->withErrors('An error occurred while saving the user. Please try again later.');
+        }
     }
 
     /**
