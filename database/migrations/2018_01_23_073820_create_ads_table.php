@@ -17,7 +17,7 @@ class CreateAdsTable extends Migration
             $table->increments('id');
             $table->string('nomAd');
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->string('picture');
             $table->timestamps();
         });
