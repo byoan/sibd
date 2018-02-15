@@ -34,6 +34,14 @@
         <input required class="form-control" id="email" name="email" type="email" placeholder="test@example.com" value={{ old('email') }}>
     </div>
     <div class="form-group">
+        <label for="password">Password</label>
+        <input required class="form-control" id="password" name="password" type="password" placeholder="Enter a password" value={{ old('password') }}>
+    </div>
+    <div class="form-group">
+        <label for="passwordConfirmation">Password confirmation</label>
+        <input required class="form-control" id="passwordConfirmation" name="passwordConfirmation" type="password" placeholder="Confirm the password" value={{ old('passwordConfirmation') }}>
+    </div>
+    <div class="form-group">
         <label for="description">Description</label>
         <textarea maxlength=200 aria-describedby="descriptionHelpBlock" required class="form-control" id="description" name="description">{{ old('description') }}</textarea>
         <small id="descriptionHelpBlock" class="form-text text-muted">200 characters max.</small>
