@@ -17,6 +17,9 @@
                     You are logged in dear {{ $user->username }}! Your role is {{ $user->getRole->name }}
                     <div class="container">
                         <p><a href="{{ route('accounts.index') }}">Accounts</a></p>
+                        <p><a href="{{ route('ads.index') }}">Ads</a></p>
+                        <p><a href="{{ route('autotasks.index') }}">Auto Tasks</a></p>
+                        <p><a href="{{ route('diseases.index') }}">Diseases</a></p>
                         <p><a href="{{ route('users.index') }}">Users</a></p>
                     </div>
                 </div>
