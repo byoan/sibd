@@ -17,13 +17,13 @@ class CreateInfrastructuresTable extends Migration
             $table->increments('id');
             $table->string('type');
             $table->integer('level');
-            $table->string('description');
+            $table->text('description');
             $table->string('family');
             $table->float('price', 5, 3);
             $table->string('ressourcesConsumption');
             $table->integer('itemCapacity');
             $table->integer('horseCapacity');
-            $table->string('itemList');
+            $table->text('itemList');
             $table->timestamps();
         });
     }
