@@ -85,7 +85,7 @@ class IndicatorController extends Controller
      */
     public function edit(int $idIndicator)
     {
-        $this->getUser()->hasPermission(['select'], 'ads');
+        $this->getUser()->hasPermission(['select'], 'indicators');
 
         $indicator = new Indicator();
         $indicator->setConnection($this->getUser()->getRole->name);
