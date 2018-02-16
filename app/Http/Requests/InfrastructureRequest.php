@@ -13,7 +13,7 @@ class InfrastructureRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,15 @@ class InfrastructureRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'type' => 'required|string|max:191',
+            'level' => 'required|integer|between:1,100',
+            'description' => 'required|string',
+            'family' => 'required|string|max:191',
+            'price' => 'required|numeric|between:1.00,99.999',
+            'ressourcesConsumption' => 'required|string|max:191',
+            'itemCapacity' => 'required|integer|max:100',
+            'horseCapacity' => 'required|integer|max:100',
+            'itemList' => 'required|string',
         ];
     }
 }

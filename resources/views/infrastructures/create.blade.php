@@ -50,8 +50,8 @@
         <input required class="form-control" id="horseCapacity" type="number" step="1" minlength="1" maxlength="100" name="horseCapacity" placeholder="Enter an horse capacity" value="{{ old('horseCapacity') }}">
     </div>
     <div class="form-group">
-        <label for="itemsList">Items list</label>
-        <textarea required class="form-control" id="itemsList" name="itemsList" placeholder="Enter a list of items">{{ old('itemsList') }}</textarea>
+        <label for="itemList">Items list</label>
+        <textarea required class="form-control" id="itemList" name="itemList" placeholder="Enter a list of items">{{ old('itemList') }}</textarea>
         <small id="itemsListHelpBlock" class="form-text text-muted">Separate each item with a /</small>
     </div>
     <button class="btn btn-primary" type="submit">Submit</button>
