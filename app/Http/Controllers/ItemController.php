@@ -113,7 +113,7 @@ class ItemController extends Controller
         $item->fill($request->all());
 
         if ($item->save()) {
-            return redirect()->route('items.show', ['idIndicator' => $item->id])->with('success', 'Item successfully updated');
+            return redirect()->route('items.show', ['idItem' => $item->id])->with('success', 'Item successfully updated');
         } else {
             return back()->withErrors('An error occurred while saving the item. Please try again later.');
         }
