@@ -11,7 +11,7 @@
     </div>
 @endif
 
-<div class="horsesEditButtonRow">
+<div class="detailsEditButtonRow">
     <h2>Horse id : {{ $horse->id }}</h2>
     <div class="detailsButtonsContainer">
         <a class="btn btn-dark" href="{{ route('horses.edit', $horse->id) }}">Edit</a>
@@ -25,7 +25,13 @@
 </div>
 <br />
 <div>
-    <h3>Indicator name : {{ $indicator->name }}</h3>
-    <h3>Indicator value : {{ $indicator->value }}</h3>
+    <h3>Informations</h3>
+    <p>Name : {{ $horse->name }}</p>
+    <p>Race : {{ $horse->race }}</p>
+    <p>Description : {{ $horse->description }}</p>
+    <p>Price : {{ $horse->price }}</p>
+    <p>Experience : {{ $horse->experience }}</p>
+    <p>Level : {{ $horse->level }}</p>
+    <p>General level : {{ $horse->generalLevel }}</p>
 </div>
 @endsection
