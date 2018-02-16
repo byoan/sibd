@@ -28,4 +28,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('indicators', 'IndicatorController');
     Route::resource('infrastructures', 'InfrastructureController');
     Route::resource('items', 'ItemController');
+    Route::resource('horses', 'HorseController');
 });
