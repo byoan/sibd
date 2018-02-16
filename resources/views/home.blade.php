@@ -24,6 +24,7 @@
                         <p><a href="{{ route('indicators.index') }}">Indicators</a></p>
                         <p><a href="{{ route('infrastructures.index') }}">Infrastructures</a></p>
                         <p><a href="{{ route('items.index') }}">Items</a></p>
+                        <p><a href="{{ route('news.index') }}">News</a></p>
                         <p><a href="{{ route('users.index') }}">Users</a></p>
                     </div>
                 </div>
