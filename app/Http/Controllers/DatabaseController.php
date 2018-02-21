@@ -27,8 +27,9 @@ class DatabaseController extends Controller
     {
         $this->checkIfAllowed();
 
-        if (file_exists('../storage/logs/error.log')) {
-            $logs = explode("\n", file_get_contents('../storage/logs/error.log'));
+        if (readlink('../storage/logs/error.log')) {
+            // We have created a symlink to the actual MySQL log file
+            $logs = explode("\n", file_get_contents(readlink('../storage/logs/error.log')));
             return view('database.logs', ['logs' => $logs]);
         } else {
             return 'Could not open the error.log file. Please check that it is properly placed and readable.';
