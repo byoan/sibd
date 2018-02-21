@@ -7,7 +7,7 @@ use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use Illuminate\Support\Facades\Db;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {

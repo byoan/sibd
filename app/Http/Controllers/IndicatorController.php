@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Indicator;
 use Illuminate\Http\Request;
 use App\Http\Requests\IndicatorRequest;
-use Illuminate\Support\Facades\Db;
+use Illuminate\Support\Facades\DB;
 
 class IndicatorController extends Controller
 {

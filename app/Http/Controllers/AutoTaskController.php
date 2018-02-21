@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\AutoTask;
 use Illuminate\Http\Request;
 use App\Http\Requests\AutoTaskRequest;
-use Illuminate\Support\Facades\Db;
+use Illuminate\Support\Facades\DB;
 
 class AutoTaskController extends Controller
 {
