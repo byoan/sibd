@@ -143,7 +143,7 @@ class DatabaseController extends Controller
 
         return view('database.mysqladmin', [
             'title' => 'variables',
-            'logs' => shell_exec("/Applications/MAMP/bin/apache2/bin/mysqladmin -u " . $config['username'] . " -p" . $config['password'] . " variables")
+            'logs' => shell_exec("/usr/bin/mysqladmin -u " . $config['username'] . " -p" . $config['password'] . " variables")
         ]);
     }
 
@@ -159,7 +159,7 @@ class DatabaseController extends Controller
 
         return view('database.mysqladmin', [
             'title' => 'process list',
-            'logs' => shell_exec("/Applications/MAMP/bin/apache2/bin/mysqladmin -u " . $config['username'] . " -p" . $config['password'] . " processlist")
+            'logs' => shell_exec("/usr/bin/mysqladmin -u " . $config['username'] . " -p" . $config['password'] . " processlist")
         ]);
     }
 
@@ -175,7 +175,7 @@ class DatabaseController extends Controller
 
         return view('database.mysqladmin', [
             'title' => 'status',
-            'logs' => shell_exec("/Applications/MAMP/bin/apache2/bin/mysqladmin -u " . $config['username'] . " -p" . $config['password'] . " status")
+            'logs' => shell_exec("/usr/bin/mysqladmin -u " . $config['username'] . " -p" . $config['password'] . " status")
         ]);
     }
 
