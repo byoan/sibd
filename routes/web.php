@@ -30,4 +30,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('items', 'ItemController');
     Route::resource('horses', 'HorseController');
     Route::resource('news', 'NewsController');
+    Route::get('/database/inspect', function () {
+        return json_encode(shell_exec('../database/maintenance.sh inspect'));
+    });
+    Route::get('/database', 'DatabaseController@index')->name('database');
+    Route::get('/logs', 'DatabaseController@logs');
 });

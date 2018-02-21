@@ -43,6 +43,11 @@
                                     {{ Auth::user()->username }} <span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    @if (Auth::user()->getRole->name == 'admin')
+                                        <a class="dropdown-item" href="{{ route('database') }}">
+                                            Database management
+                                        </a>
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
