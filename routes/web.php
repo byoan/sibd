@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('infrastructures', 'InfrastructureController');
     Route::resource('items', 'ItemController');
     Route::resource('horses', 'HorseController');
+    Route::resource('atts', 'AttsController');
     Route::resource('news', 'NewsController');
     Route::get('/database/inspect', function () {
         return json_encode(shell_exec('../database/maintenance.sh inspect'));
