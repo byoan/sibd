@@ -17,7 +17,7 @@ class ContestController extends Controller
     {
         $this->getUser()->hasPermission(['select'], 'contests');
 
-        // Retrieve the full horse list
+        // Retrieve the full contests list
         $contestsList = DB::connection($this->getUser()->getRole->name)->table('contests')->paginate(20);
 
         return view('contests.index', array(

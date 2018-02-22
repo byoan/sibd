@@ -11,6 +11,6 @@ class ContestsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Contest::class, 1000)->create();
+        factory(App\Contest::class, 100000)->create();
     }
 }
