@@ -10,6 +10,7 @@
     <ul>
         <li><a href="{{ route('mysqladminStatus')}}" title="Check MySQL status">Inspect MySQL server status</a></li>
         <li><a href="{{ route('logs')}}" title="Check logs">Inspect MySQL Error log</a></li>
+        <li><a href="{{ route('slowQueries')}}" title="Check slow queries">Inspect MySQL Slow Queries log</a></li>
         <li><a href="{{ route('mysqladminProcessList')}}" title="Check MySQL process list">Inspect MySQL process list</a></li>
         <li><a href="{{ route('mysqladminVariables')}}" title="Check MySQL variables">Inspect MySQL variables</a></li>
     </ul>

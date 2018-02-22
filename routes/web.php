@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('database')->group(function () {
         Route::get('status', 'DatabaseController@serverStatus')->name('mysqladminStatus');
         Route::get('logs', 'DatabaseController@logs')->name('logs');
+        Route::get('slowQueries', 'DatabaseController@slowQueries')->name('slowQueries');
         Route::get('variables', 'DatabaseController@serverVariables')->name('mysqladminVariables');
         Route::get('process', 'DatabaseController@serverProcessList')->name('mysqladminProcessList');
         Route::get('/', 'DatabaseController@index')->name('database');

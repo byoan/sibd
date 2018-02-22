@@ -19,9 +19,9 @@ class DatabaseController extends Controller
     }
 
     /**
-     * Displays the database erro logs
+     * Displays the database error logs
      *
-     * @return void
+     * @return string
      */
     public function logs()
     {
@@ -30,9 +30,33 @@ class DatabaseController extends Controller
         if (readlink('../storage/logs/error.log')) {
             // We have created a symlink to the actual MySQL log file
             $logs = explode("\n", file_get_contents(readlink('../storage/logs/error.log')));
-            return view('database.logs', ['logs' => $logs]);
+            return view('database.logs', array(
+                'title' => 'Error',
+                'logs' => $logs
+            ));
         } else {
             return 'Could not open the error.log file. Please check that it is properly placed and readable.';
+        }
+    }
+
+    /**
+     * Displays the database slow queries log
+     *
+     * @return string
+     */
+    public function slowQueries()
+    {
+        $this->checkIfAllowed();
+
+        if (readlink('../storage/logs/slow-queries.log')) {
+            // We have created a symlink to the actual MySQL log file
+            $logs = explode("\n", file_get_contents(readlink('../storage/logs/slow-queries.log')));
+            return view('database.logs', array(
+                'title' => 'Slow Queries',
+                'logs' => $logs
+            ));
+        } else {
+            return 'Could not open the slow-queries.log file. Please check that it is properly placed and readable.';
         }
     }
 
