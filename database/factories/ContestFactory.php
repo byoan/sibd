@@ -16,6 +16,7 @@ use Faker\Generator as Faker;
 $factory->define(App\Contest::class, function (Faker $faker) {
     return [
         'itemList' => $faker->word,
+        'infraId' => $faker->unique()->numberBetween(1, 100000),
         'beginDate' => date('Y-m-d h:m:s'),
         'endDate' => date('Y-m-d h:m:s'),
         'created_at' => date('Y-m-d h:m:s'),
