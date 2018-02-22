@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('items', 'ItemController');
     Route::resource('horses', 'HorseController');
     Route::resource('atts', 'AttController');
+    Route::resource('contests', 'ContestController');
     Route::resource('news', 'NewsController');
 
     Route::prefix('database')->group(function () {
