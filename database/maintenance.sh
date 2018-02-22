@@ -12,17 +12,16 @@
 case "$1" in
 
     inspect)
-        echo 'Inspecting all tables...'
-        # /usr/bin/myisamchk -d -c -i -s /var/lib/mysql/test
-        /usr/bin/mysqlcheck --all-databases -u root -proot
+        echo 'Inspecting the cheval tables ...'
+        for i in *.MYI; do myisamchk -d -c -i -s /var/lib/mysql/cheval/$(echo $i| cut -f 1 -d '.');done;
         ;;
-    repair)
-        echo 'Repairing all tables...'
-        /usr/bin/myisamchk -a -r –e /var/lib/mysql/test
+    defragment)
+        echo 'Repairing and defragmenting the cheval tables ...'
+        for i in *.MYI; do myisamchk -a -r –e /var/lib/mysql/cheval/$(echo $i| cut -f 1 -d '.');done;
         ;;
     optimize)
-        echo 'Optimizing all tables...'
-        /usr/bin/myisamchk -a -d /var/lib/mysql/test
+        echo 'Optimizing the cheval tables ...'
+        for i in *.MYI; do myisamchk -a -d /var/lib/mysql/cheval/$(echo $i| cut -f 1 -d '.');done;
     ;;
 esac
 exit 0
