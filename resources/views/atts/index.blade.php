@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="headerIndexContainer">
-        <h1>Horse attribute list</h1>
+        <h1>Attribute list</h1>
         <div class="headerIndexButtonsContainer">
             <a class="btn btn-success" href="{{ route('atts.create') }}" title="Create">Create</a>
             <button name="deleteSelectedRows" class="btn btn-danger" style="display:none" data-id-table="atts" title="Delete selected rows">Delete selected rows</button>
@@ -28,6 +28,7 @@
             <thead>
                 <tr>
                 <th scope="col"></th>
+                <th scope="col">Id</th>
                 <th scope="col">Name</th>
                 <th scope="col">Value</th>
                 <th scope="col">Actions</th>
