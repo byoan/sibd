@@ -122,7 +122,7 @@ class HorseController extends Controller
      * Remove the specified resource from storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param  \App\Horse  $horse
+     * @param  int $idHorse
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, int $idHorse)
