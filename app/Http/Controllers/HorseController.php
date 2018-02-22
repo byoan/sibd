@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Horse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Db;
+use Illuminate\Support\Facades\DB;
 
 class HorseController extends Controller
 {

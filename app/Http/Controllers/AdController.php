@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Ad;
 use Illuminate\Http\Request;
 use App\Http\Requests\AdRequest;
-use Illuminate\Support\Facades\Db;
+use Illuminate\Support\Facades\DB;
 
 class AdController extends Controller
 {

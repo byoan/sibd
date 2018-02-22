@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Item;
 use Illuminate\Http\Request;
 use App\Http\Requests\ItemRequest;
-use Illuminate\Support\Facades\Db;
+use Illuminate\Support\Facades\DB;
 
 class ItemController extends Controller
 {

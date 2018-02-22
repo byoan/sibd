@@ -31,9 +31,20 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('horses', 'HorseController');
     Route::resource('atts', 'AttsController');
     Route::resource('news', 'NewsController');
-    Route::get('/database/inspect', function () {
-        return json_encode(shell_exec('../database/maintenance.sh inspect'));
+
+    Route::prefix('database')->group(function () {
+        Route::get('status', 'DatabaseController@serverStatus')->name('mysqladminStatus');
+        Route::get('logs', 'DatabaseController@logs')->name('logs');
+        Route::get('variables', 'DatabaseController@serverVariables')->name('mysqladminVariables');
+        Route::get('process', 'DatabaseController@serverProcessList')->name('mysqladminProcessList');
+        Route::get('/', 'DatabaseController@index')->name('database');
+
+        Route::prefix('maintenance')->group(function () {
+            Route::get('check/quick', 'DatabaseController@checkQuick')->name('maintenanceCheckQuick');
+            Route::get('check/extended', 'DatabaseController@checkExtended')->name('maintenanceCheckExtended');
+            Route::get('analyze', 'DatabaseController@analyze')->name('maintenanceAnalyze');
+            Route::get('repair', 'DatabaseController@repair')->name('maintenanceRepair');
+            Route::get('optimize', 'DatabaseController@optimize')->name('maintenanceOptimize');
+        });
     });
-    Route::get('/database', 'DatabaseController@index')->name('database');
-    Route::get('/logs', 'DatabaseController@logs');
 });
