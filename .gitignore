@@ -12,3 +12,5 @@ yarn-error.log
 .env
 README.md
 .gitignore
+.DS_Store
+.env.example
