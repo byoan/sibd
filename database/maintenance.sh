@@ -13,15 +13,15 @@ case "$1" in
 
     inspect)
         echo 'Inspecting the cheval tables ...'
-        for i in /var/lib/mysql/cheval/*.MYI; do myisamchk -d -c -i -s /var/lib/mysql/cheval/$(echo $i| cut -f 1 -d '.');done;
+        for i in /var/lib/mysql/cheval/*.MYI; do myisamchk -d -c -i -s $(echo $i| cut -f 1 -d '.');done;
         ;;
     defragment)
         echo 'Repairing and defragmenting the cheval tables ...'
-        for i in /var/lib/mysql/cheval/*.MYI; do myisamchk -a -r –e /var/lib/mysql/cheval/$(echo $i| cut -f 1 -d '.');done;
+        for i in /var/lib/mysql/cheval/*.MYI; do myisamchk -a -r –e $(echo $i| cut -f 1 -d '.');done;
         ;;
     optimize)
         echo 'Optimizing the cheval tables ...'
-        for i in /var/lib/mysql/cheval/*.MYI; do myisamchk -a -d /var/lib/mysql/cheval/$(echo $i| cut -f 1 -d '.');done;
+        for i in /var/lib/mysql/cheval/*.MYI; do myisamchk -a -d $(echo $i| cut -f 1 -d '.');done;
     ;;
 esac
 exit 0
