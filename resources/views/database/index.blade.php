@@ -42,7 +42,13 @@
                 <li><a href="{{ route('maintenanceOptimize')}}" title="Perform an optimisation on the app's tables">Optimize</a></li>
             </ul>
         </li>
+    </ul>
 
+    <h2>Cron</h2>
+    <ul>
+        <li><a href="{{ route('cronInspect')}}" title="Check CRON inspection logs">Inspect MySQL "Inspect" CRON logs</a></li>
+        <li><a href="{{ route('cronDefragment')}}" title="Check CRON defragment logs">Inspect MySQL "Defragment" CRON logs</a></li>
+        <li><a href="{{ route('cronOptimize')}}" title="Check CRON optimization logs">Inspect MySQL "Optimize" CRON logs</a></li>
     </ul>
 </div>
 

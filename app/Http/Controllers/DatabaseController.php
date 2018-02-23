@@ -205,6 +205,66 @@ class DatabaseController extends Controller
     }
 
     /**
+     * Displays the inspection CRON task log
+     *
+     * @return string
+     */
+    public function cronInspect()
+    {
+        $this->checkIfAllowed();
+        $logFile = file_get_contents("../storage/logs/cron/inspect.log");
+
+        if (!$logFile) {
+            return 'Could not open the Inspection log file. Please check it is properly placed and readable';
+        } else {
+            return view('database.logs', array(
+                'title' => '"Inspect" CRON',
+                'logs' => explode("\n", $logFile)
+            ));
+        }
+    }
+
+    /**
+     * Displays the defragmentation CRON task log
+     *
+     * @return string
+     */
+    public function cronDefragment()
+    {
+        $this->checkIfAllowed();
+        $logFile = file_get_contents("../storage/logs/cron/defragment.log");
+
+        if (!$logFile) {
+            return 'Could not open the Defragment log file. Please check it is properly placed and readable';
+        } else {
+            return view('database.logs', array(
+                'title' => '"Defragment" CRON',
+                'logs' => explode("\n", $logFile)
+            ));
+        }
+    }
+
+    /**
+     * Displays the optimize CRON task log
+     *
+     * @return string
+     */
+    public function cronOptimize()
+    {
+        $this->checkIfAllowed();
+        $logFile = file_get_contents("../storage/logs/cron/optimize.log");
+
+        if (!$logFile) {
+            return 'Could not open the Optimize log file. Please check it is properly placed and readable';
+        } else {
+            return view('database.logs', array(
+                'title' => '"Optimize" CRON',
+                'logs' => explode("\n", $logFile)
+            ));
+        }
+    }
+
+    /**
      * Retrieves the database connection that matches the current User's role
      *
      * @return array

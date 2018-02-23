@@ -48,5 +48,11 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('repair', 'DatabaseController@repair')->name('maintenanceRepair');
             Route::get('optimize', 'DatabaseController@optimize')->name('maintenanceOptimize');
         });
+
+        Route::prefix('cron')->group(function () {
+            Route::get('inspect', 'DatabaseController@cronInspect')->name('cronInspect');
+            Route::get('defragment', 'DatabaseController@crondefragment')->name('cronDefragment');
+            Route::get('optimize', 'DatabaseController@cronOptimize')->name('cronOptimize');
+        });
     });
 });
