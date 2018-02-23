@@ -72,7 +72,7 @@ class DatabaseController extends Controller
 
         return view('database.maintenance', array(
             'name' => 'Inspection of the databases',
-            'result' => shell_exec('/usr/bin/mysqlcheck -e ' . $config['database'] . ' -u ' . $config['username'] . " -p" . $config['password'])
+            'result' => shell_exec($this->fetchDbExecutablePath() . 'mysqlcheck -e ' . $config['database'] . ' -u ' . $config['username'] . " -p" . $config['password'])
         ));
     }
 
@@ -88,7 +88,7 @@ class DatabaseController extends Controller
 
         return view('database.maintenance', array(
             'name' => 'Quick inspection of the database ' . $config['database'],
-            'result' => shell_exec('/usr/bin/mysqlcheck -q ' . $config['database'] . ' -u ' . $config['username'] . " -p" . $config['password'])
+            'result' => shell_exec($this->fetchDbExecutablePath() . 'mysqlcheck -q ' . $config['database'] . ' -u ' . $config['username'] . " -p" . $config['password'])
         ));
     }
 
@@ -104,7 +104,7 @@ class DatabaseController extends Controller
 
         return view('database.maintenance', array(
             'name' => 'Extended inspection of the database ' . $config['database'],
-            'result' => shell_exec('/usr/bin/mysqlcheck -e ' . $config['database'] . ' -u ' . $config['username'] . " -p" . $config['password'])
+            'result' => shell_exec($this->fetchDbExecutablePath() . 'mysqlcheck -e ' . $config['database'] . ' -u ' . $config['username'] . " -p" . $config['password'])
         ));
     }
 
@@ -120,7 +120,7 @@ class DatabaseController extends Controller
 
         return view('database.maintenance', array(
             'name' => 'Analysis of the database ' . $config['database'] . '\'s tables',
-            'result' => shell_exec('/usr/bin/mysqlanalyze ' . $config['database'] . ' -u ' . $config['username'] . " -p" . $config['password'])
+            'result' => shell_exec($this->fetchDbExecutablePath() . 'mysqlanalyze ' . $config['database'] . ' -u ' . $config['username'] . " -p" . $config['password'])
         ));
     }
 
@@ -136,7 +136,7 @@ class DatabaseController extends Controller
 
         return view('database.maintenance', array(
             'name' => 'Repair of the database ' . $config['database'] . '\'s tables',
-            'result' => shell_exec('/usr/bin/mysqlrepair ' . $config['database'] . ' -u ' . $config['username'] . " -p" . $config['password'])
+            'result' => shell_exec($this->fetchDbExecutablePath() . 'mysqlrepair ' . $config['database'] . ' -u ' . $config['username'] . " -p" . $config['password'])
         ));
     }
 
@@ -152,7 +152,7 @@ class DatabaseController extends Controller
 
         return view('database.maintenance', array(
             'name' => 'Optimization of the database ' . $config['database'] . '\'s tables',
-            'result' => shell_exec('/usr/bin/mysqloptimize ' . $config['database'] . ' -u ' . $config['username'] . " -p" . $config['password'])
+            'result' => shell_exec($this->fetchDbExecutablePath() . 'mysqloptimize ' . $config['database'] . ' -u ' . $config['username'] . " -p" . $config['password'])
         ));
     }
 
@@ -168,7 +168,7 @@ class DatabaseController extends Controller
 
         return view('database.mysqladmin', [
             'title' => 'variables',
-            'logs' => shell_exec("/usr/bin/mysqladmin -u " . $config['username'] . " -p" . $config['password'] . " variables")
+            'logs' => shell_exec($this->fetchDbExecutablePath() . "mysqladmin -u " . $config['username'] . " -p" . $config['password'] . " variables")
         ]);
     }
 
@@ -184,7 +184,7 @@ class DatabaseController extends Controller
 
         return view('database.mysqladmin', [
             'title' => 'process list',
-            'logs' => shell_exec("/usr/bin/mysqladmin -u " . $config['username'] . " -p" . $config['password'] . " processlist")
+            'logs' => shell_exec($this->fetchDbExecutablePath() . "mysqladmin -u " . $config['username'] . " -p" . $config['password'] . " processlist")
         ]);
     }
 
@@ -200,7 +200,7 @@ class DatabaseController extends Controller
 
         return view('database.mysqladmin', [
             'title' => 'status',
-            'logs' => shell_exec("/usr/bin/mysqladmin -u " . $config['username'] . " -p" . $config['password'] . " status")
+            'logs' => shell_exec($this->fetchDbExecutablePath() . "mysqladmin -u " . $config['username'] . " -p" . $config['password'] . " status")
         ]);
     }
 
@@ -229,5 +229,16 @@ class DatabaseController extends Controller
         if (!in_array($this->getUser()->getRole->name, ['automatedTask', 'admin'])) {
             abort(403, 'You are not allowed to access this area of the application');
         }
+    }
+
+    /**
+     * Returns the binaries path according to the configuration
+     * Useful for development on machines other that the VM of production
+     *
+     * @return string
+     */
+    private function fetchDbExecutablePath()
+    {
+        return env('DB_EXECUTABLE_PATH', '/usr/bin/');
     }
 }
