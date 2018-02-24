@@ -13,7 +13,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\Atts::class, function (Faker $faker) {
+$factory->define(App\Att::class, function (Faker $faker) {
     return [
         'name' => $faker->word,
         'value' => $faker->numberBetween(1, 100),

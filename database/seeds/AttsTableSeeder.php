@@ -11,6 +11,6 @@ class AttsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Atts::class, 1000)->create();
+        factory(App\Att::class, 1000)->create();
     }
 }
