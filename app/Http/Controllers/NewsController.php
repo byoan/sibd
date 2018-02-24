@@ -18,7 +18,7 @@ class NewsController extends Controller
     {
         $this->getUser()->hasPermission(['select'], 'news');
 
-        // Retrieve the full ads list
+        // Retrieve the full news list
         $newsList = DB::connection($this->getUser()->getRole->name)->table('news')->paginate(20);
 
         return view('news.index', array(
