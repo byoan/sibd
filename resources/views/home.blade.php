@@ -19,6 +19,7 @@
                         <p></p>
                         <p><a href="{{ route('accounts.index') }}">Accounts</a></p>
                         <p><a href="{{ route('ads.index') }}">Ads</a></p>
+                        <p><a href="{{ route('adslist.index') }}">Ad lists</a></p>
                         <p><a href="{{ route('atts.index') }}">Attributes</a></p>
                         <p><a href="{{ route('autotasks.index') }}">Auto Tasks</a></p>
                         <p><a href="{{ route('contests.index') }}">Contests</a></p>
@@ -28,6 +29,7 @@
                         <p><a href="{{ route('infrastructures.index') }}">Infrastructures</a></p>
                         <p><a href="{{ route('items.index') }}">Items</a></p>
                         <p><a href="{{ route('news.index') }}">News</a></p>
+                        <p><a href="{{ route('newspapers.index') }}">Newspapers</a></p>
                         <p><a href="{{ route('users.index') }}">Users</a></p>
                     </div>
                 </div>
