@@ -12,6 +12,6 @@ class Horse extends Model
      * @var array
      */
     protected $fillable = [
-        'race', 'description', 'price', 'experience', 'level', 'generalLevel'
+        'name', 'race', 'description', 'price', 'experience', 'level', 'generalLevel'
     ];
 }

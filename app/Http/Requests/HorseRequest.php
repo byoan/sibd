@@ -13,7 +13,7 @@ class HorseRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,6 +24,7 @@ class HorseRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => 'required|string|max:191',
             'race' => 'required|string|max:191',
             'description' => 'required|string',
             'price' => 'required|numeric|between:0.0,99.999',

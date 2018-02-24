@@ -39,15 +39,15 @@
     </div>
     <div class="form-group">
         <label for="experience">Horse experience</label>
-        <input required class="form-control" id="experience" type=" number" step="1" minlength="1" maxlength="100" name="experience" placeholder="Enter the experience" value="{{ old('experience') }}">
+        <input required class="form-control" id="experience" type="number" step="1" minlength="1" maxlength="100" name="experience" placeholder="Enter the experience" value="{{ old('experience') }}">
     </div>
     <div class="form-group">
         <label for="level">Horse level</label>
-        <input required class="form-control" id="horseCapacity" type="number" step="1" minlength="1" maxlength="100" name="horseCapacity" placeholder="Enter an horse level" value="{{ old('level') }}">
+        <input required class="form-control" id="level" type="number" step="1" minlength="1" maxlength="100" name="level" placeholder="Enter an horse level" value="{{ old('level') }}">
     </div>
     <div class="form-group">
         <label for="generalLevel">Horse general Level</label>
-        <input required class="form-control" id="generalLevel" name="generalLevel" placeholder="Enter generalLevel">{{ old('generalLevelc') }}</textarea>
+        <input required class="form-control" type="number" step="1" minlength="1" maxlength="100" id="generalLevel" name="generalLevel" placeholder="Enter the horse general level">{{ old('generalLevel') }}</textarea>
     </div>
     <button class="btn btn-primary" type="submit">Submit</button>
 </form>

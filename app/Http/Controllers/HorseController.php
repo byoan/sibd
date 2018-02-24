@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Horse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\HorseRequest;
 
 class HorseController extends Controller
 {
@@ -40,19 +41,19 @@ class HorseController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\HorseRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(HorseRequest $request)
     {
         $this->getUser()->hasPermission(['insert'], 'horses');
         // Set the connection to use after having checked the permissions
-        $item = new Item();
-        $item->setConnection($this->getUser()->getRole->name);
+        $horse = new Horse();
+        $horse->setConnection($this->getUser()->getRole->name);
 
-        $item->fill($request->all());
+        $horse->fill($request->all());
 
-        if ($item->save()) {
+        if ($horse->save()) {
             return redirect()->route('horses.index')->with('success', 'Horse successfully created');
         } else {
             return back()->withErrors('An error occurred while saving the horse. Please try again later.');
