@@ -16,8 +16,8 @@ class CreateNewspapersTable extends Migration
         Schema::create('newspapers', function (Blueprint $table) {
             $table->increments('id');
             $table->date('dayDate');
-            $table->date('agenda');
-            $table->string('previousDayBestMoments');
+            $table->text('agenda');
+            $table->text('previousDayBestMoments');
             $table->timestamps();
         });
     }

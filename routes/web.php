@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('atts', 'AttController');
     Route::resource('contests', 'ContestController');
     Route::resource('news', 'NewsController');
+    Route::resource('newspapers', 'NewspaperController');
 
     Route::prefix('database')->group(function () {
         Route::get('status', 'DatabaseController@serverStatus')->name('mysqladminStatus');
