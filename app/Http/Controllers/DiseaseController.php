@@ -85,7 +85,7 @@ class DiseaseController extends Controller
      */
     public function edit(int $idDisease)
     {
-        $this->getUser()->hasPermission(['select'], 'auto_tasks');
+        $this->getUser()->hasPermission(['select'], 'diseases');
 
         $disease = new Disease();
         $disease->setConnection($this->getUser()->getRole->name);
