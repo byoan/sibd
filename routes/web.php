@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('adslist', 'AdsListController');
     Route::resource('autotasks', 'AutoTaskController');
     Route::resource('diseases', 'DiseaseController');
+    Route::resource('diseasesLists', 'DiseaseListController');
     Route::resource('indicators', 'IndicatorController');
     Route::resource('infrastructures', 'InfrastructureController');
     Route::resource('items', 'ItemController');
