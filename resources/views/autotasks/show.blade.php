@@ -29,7 +29,6 @@
     <p>Action : {{ $autoTask->action }}</p>
     <p>Frequency : {{ $autoTask->frequency }}</p>
     <p>Owner : <a href="{{ route('users.show', $autoTask->user->id) }}" title="{{ $autoTask->user->username }}">{{ $autoTask->user->username }}</a></p>
-    <p>Target : {{ $autoTask->idObject }}</p>
-        {{--  <a href="{{ route('items.show', $autoTask->idObject) }}" title="Target"></a></p>  --}}
+    <p>Target object: <a href="{{ route('items.show', $autoTask->idObject) }}" title="Target">{{ $autoTask->idObject }}</a></p>
 </div>
 @endsection
