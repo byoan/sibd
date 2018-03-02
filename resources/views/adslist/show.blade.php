@@ -26,7 +26,7 @@
 <br />
 <div>
     <h3>Informations</h3>
-    <p>Id Newspaper : {{ $ad->idNewspaper }}</p>
+    <p>Id Newspaper :  <a href="{{ route('newspapers.show', $ad->idNewspaper)}}" title="See the newspaper details">{{ $ad->idNewspaper }}</a></p></p>
     <p>Id Ad : <a href="{{ route('ads.show', $ad->idAd)}}" title="See the ad details">{{ $ad->idAd }}</a></p>
 </div>
 @endsection
