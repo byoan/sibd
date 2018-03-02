@@ -24,6 +24,7 @@
                         <p><a href="{{ route('autotasks.index') }}">Auto Tasks</a></p>
                         <p><a href="{{ route('contests.index') }}">Contests</a></p>
                         <p><a href="{{ route('diseases.index') }}">Diseases</a></p>
+                        <p><a href="{{ route('diseasesLists.index') }}">Diseases list</a></p>
                         <p><a href="{{ route('horses.index') }}">Horses</a></p>
                         <p><a href="{{ route('indicators.index') }}">Indicators</a></p>
                         <p><a href="{{ route('infrastructures.index') }}">Infrastructures</a></p>
