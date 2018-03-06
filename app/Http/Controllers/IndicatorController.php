@@ -138,7 +138,7 @@ class IndicatorController extends Controller
             if ($indicator->delete()) {
                 return redirect()->route('indicators.index')->with('success', 'Indicator successfully deleted');
             } else {
-                return back()->with('errors', 'An error occurred while deleting the ad');
+                return back()->with('errors', 'An error occurred while deleting the indicator');
             }
         } else {
             $indicatorsToDelete = $request->input('list');
