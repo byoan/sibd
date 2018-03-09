@@ -17,9 +17,9 @@ class ShopController extends Controller
     {
         $this->getUser()->hasPermission(['select'], 'shops');
 
-        // Retrieve the full horse shop list
+        // Retrieve the full shops list
         $shopsList = DB::connection($this->getUser()->getShop->name)->table('shops')->paginate(20);
-        
+
         return view('shops.index', array(
             'shops' => $shopsList
         ));
@@ -65,7 +65,7 @@ class ShopController extends Controller
      * @param  int  $idShop
      * @return \Illuminate\Http\Response
      */
-    public function show(Int $idShop)
+    public function show(int $idShop)
     {
         $this->getUser()->hasPermission(['select'], 'shops');
 
@@ -82,7 +82,7 @@ class ShopController extends Controller
      * @param  int  $idShop
      * @return \Illuminate\Http\Response
      */
-    public function edit(Int $idShop)
+    public function edit(int $idShop)
     {
         $this->getUser()->hasPermission(['select'], 'shops');
 

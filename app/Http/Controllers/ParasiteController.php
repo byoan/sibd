@@ -19,7 +19,7 @@ class ParasiteController extends Controller
 
         // Retrieve the full horse parasite list
         $parasitesList = DB::connection($this->getUser()->getRole->name)->table('parasites')->paginate(20);
-        
+
         return view('parasites.index', array(
             'parasites' => $parasitesList
         ));
@@ -65,7 +65,7 @@ class ParasiteController extends Controller
      * @param  int  $idParasite
      * @return \Illuminate\Http\Response
      */
-    public function show(Int $idParasite)
+    public function show(int $idParasite)
     {
         $this->getUser()->hasPermission(['select'], 'parasites');
 
@@ -82,7 +82,7 @@ class ParasiteController extends Controller
      * @param  int  $idParasite
      * @return \Illuminate\Http\Response
      */
-    public function edit(Int $idParasite)
+    public function edit(int $idParasite)
     {
         $this->getUser()->hasPermission(['select'], 'parasites');
 

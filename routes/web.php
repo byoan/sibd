@@ -20,24 +20,27 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::resource('accounts', 'AccountController');
-    Route::resource('users', 'UserController');
     Route::resource('ads', 'AdController');
     Route::resource('adslist', 'AdsListController');
+    Route::resource('accounts', 'AccountController');
+    Route::resource('atts', 'AttController');
     Route::resource('autotasks', 'AutoTaskController');
+    Route::resource('contests', 'ContestController');
     Route::resource('diseases', 'DiseaseController');
     Route::resource('diseasesLists', 'DiseaseListController');
+    Route::resource('horseclubs', 'HorseClubController');
+    Route::resource('horses', 'HorseController');
     Route::resource('indicators', 'IndicatorController');
     Route::resource('infrastructures', 'InfrastructureController');
     Route::resource('injuries', 'InjuriesController');
     Route::resource('injurieslists', 'InjuriesListController');
     Route::resource('items', 'ItemController');
-    Route::resource('horses', 'HorseController');
-    Route::resource('atts', 'AttController');
-    Route::resource('contests', 'ContestController');
+    Route::resource('itemfamilies', 'ItemFamilyController');
     Route::resource('news', 'NewsController');
     Route::resource('newspapers', 'NewspaperController');
-    Route::resource('shop', 'ShopController');
+    Route::resource('parasites', 'ParasiteController');
+    Route::resource('shops', 'ShopController');
+    Route::resource('users', 'UserController');
 
     Route::prefix('database')->group(function () {
         Route::get('status', 'DatabaseController@serverStatus')->name('mysqladminStatus');

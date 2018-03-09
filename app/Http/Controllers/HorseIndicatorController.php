@@ -18,11 +18,11 @@ class HorseIndicatorController extends Controller
     {
         $this->getUser()->hasPermission(['select'], 'horse_indicators');
 
-        // Retrieve the full horse list
-        $HorseIndicatorsList = DB::connection($this->getUser()->getRole->name)->table('horse_indicators')->paginate(20);
+        // Retrieve the full horse indicators list
+        $horseIndicatorsList = DB::connection($this->getUser()->getRole->name)->table('horse_indicators')->paginate(20);
 
-        return view('HorseIndicators.index', array(
-            'HorseIndicators' => $HorseIndicatorsList
+        return view('horseIndicators.index', array(
+            'horseIndicators' => $horseIndicatorsList
         ));
     }
 
@@ -35,7 +35,7 @@ class HorseIndicatorController extends Controller
     {
         $this->getUser()->hasPermission(['insert'], 'horse_indicators');
 
-        return view('HorseIndicators.create');
+        return view('horseIndicators.create');
     }
 
     /**
@@ -48,13 +48,13 @@ class HorseIndicatorController extends Controller
     {
         $this->getUser()->hasPermission(['insert'], 'horse_indicators');
         // Set the connection to use after having checked the permissions
-        $HorseIndicator = new HorseIndicator();
-        $HorseIndicator->setConnection($this->getUser()->getRole->name);
+        $horseIndicator = new HorseIndicator();
+        $horseIndicator->setConnection($this->getUser()->getRole->name);
 
-        $HorseIndicator->fill($request->all());
+        $horseIndicator->fill($request->all());
 
-        if ($HorseIndicator->save()) {
-            return redirect()->route('HorseIndicators.index')->with('success', 'Horse indicator successfully created');
+        if ($horseIndicator->save()) {
+            return redirect()->route('horseIndicators.index')->with('success', 'Horse indicator successfully created');
         } else {
             return back()->withErrors('An error occurred while saving the horse indicator. Please try again later.');
         }
@@ -70,27 +70,27 @@ class HorseIndicatorController extends Controller
     {
         $this->getUser()->hasPermission(['select'], 'horse_indicators');
 
-        $HorseIndicator = new HorseIndicator();
-        $HorseIndicator->setConnection($this->getUser()->getRole->name);
-        $HorseIndicator = $HorseIndicator->findOrFail($idHorseIndicator);
+        $horseIndicator = new HorseIndicator();
+        $horseIndicator->setConnection($this->getUser()->getRole->name);
+        $horseIndicator = $horseIndicator->findOrFail($idHorseIndicator);
 
-        return view('HorseIndicators.show', ['HorseIndicator' => $HorseIndicator]);
+        return view('horseIndicators.show', ['horseIndicator' => $horseIndicator]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\HorseIndicator  $HorseIndicator
+     * @param  int  $idHorseIndicator
      * @return \Illuminate\Http\Response
      */
     public function edit(int $idHorseIndicator)
     {
         $this->getUser()->hasPermission(['select'], 'horse_indicators');
 
-        $HorseIndicator = new HorseIndicator();
-        $HorseIndicator->setConnection($this->getUser()->getRole->name);
+        $horseIndicator = new HorseIndicator();
+        $horseIndicator->setConnection($this->getUser()->getRole->name);
 
-        $HorseIndicator = $HorseIndicator->findOrFail($idHorseIndicator);
+        $horseIndicator = $horseIndicator->findOrFail($idHorseIndicator);
 
         return view('HorseIndicators.edit', array(
             'HorseIndicator' => $HorseIndicator
@@ -101,19 +101,19 @@ class HorseIndicatorController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\HorseIndicator  $HorseIndicator
+     * @param  \App\HorseIndicator  $horseIndicator
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, HorseIndicator $HorseIndicator)
+    public function update(Request $request, HorseIndicator $horseIndicator)
     {
         $this->getUser()->hasPermission(['update'], 'horse_indicators');
 
-        $HorseIndicator->setConnection($this->getUser()->getRole->name);
+        $horseIndicator->setConnection($this->getUser()->getRole->name);
 
-        $HorseIndicator->fill($request->all());
+        $horseIndicator->fill($request->all());
 
-        if ($HorseIndicator->save()) {
-            return redirect()->route('HorseIndicators.show', ['idHorseIndicators' => $HorseIndicator->id])->with('success', 'Horse  indicator successfully updated');
+        if ($horseIndicator->save()) {
+            return redirect()->route('horseIndicators.show', ['idHorseIndicators' => $horseIndicator->id])->with('success', 'Horse indicator successfully updated');
         } else {
             return back()->withErrors('An error occurred while saving the horse indicator. Please try again later.');
         }
@@ -136,20 +136,20 @@ class HorseIndicatorController extends Controller
             $HorseIndicator = $HorseIndicator->findOrFail($idHorseIndicator);
 
             if ($HorseIndicator->delete()) {
-                return redirect()->route('HorseIndicators.index')->with('success', 'Horse indicator successfully deleted');
+                return redirect()->route('horseIndicators.index')->with('success', 'Horse indicator successfully deleted');
             } else {
                 return back()->with('errors', 'An error occurred while deleting the horse indicator');
             }
         } else {
-            $HorseIndicatorsToDelete = $request->input('list');
+            $horseIndicatorsToDelete = $request->input('list');
             $result = true;
 
-            foreach ($HorseIndicatorsToDelete as $key => $HorseIndicatorId) {
-                $HorseIndicator = new HorseIndicator();
-                $HorseIndicator->setConnection($this->getUser()->getRole->name);
-                $HorseIndicator = $HorseIndicator->findOrFail($HorseIndicatorId);
+            foreach ($horseIndicatorsToDelete as $key => $horseIndicatorId) {
+                $horseIndicator = new HorseIndicator();
+                $horseIndicator->setConnection($this->getUser()->getRole->name);
+                $horseIndicator = $horseIndicator->findOrFail($horseIndicatorId);
 
-                if ($HorseIndicator->delete()) {
+                if ($horseIndicator->delete()) {
                     continue;
                 } else {
                     $result = false;
@@ -163,7 +163,7 @@ class HorseIndicatorController extends Controller
                 $request->session()->flash('errors', 'An error occurred while deleting the selected horse indicators');
             }
 
-            return 'HorseIndicators';
+            return 'horseindicators';
         }
     }
 }
