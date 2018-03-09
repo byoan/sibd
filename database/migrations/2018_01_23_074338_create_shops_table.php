@@ -15,16 +15,11 @@ class CreateShopsTable extends Migration
     {
         Schema::create('shops', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('horseList')->unsigned();
-            $table->integer('itemList')->unsigned();
-            $table->integer('infraList')->unsigned();
-            $table->integer('ridingStableList')->unsigned();
-            $table->integer('horseClubList')->unsigned();
-            $table->foreign('horseList')->references('id')->on('horses');
-            $table->foreign('itemList')->references('id')->on('items');
-            $table->foreign('infraList')->references('id')->on('infrastructures');
-            $table->foreign('ridingStableList')->references('id')->on('riding_stables');
-            $table->foreign('horseClubList')->references('id')->on('horse_clubs');
+            $table->text('horseList');
+            $table->text('itemList');
+            $table->text('infraList');
+            $table->text('ridingStableList');
+            $table->text('horseClubList');
             $table->timestamps();
 
         });

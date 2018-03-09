@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('contests', 'ContestController');
     Route::resource('news', 'NewsController');
     Route::resource('newspapers', 'NewspaperController');
+    Route::resource('shop', 'ShopController');
 
     Route::prefix('database')->group(function () {
         Route::get('status', 'DatabaseController@serverStatus')->name('mysqladminStatus');
