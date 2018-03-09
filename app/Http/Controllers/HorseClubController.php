@@ -18,7 +18,7 @@ class HorseClubController extends Controller
     {
         $this->getUser()->hasPermission(['select'], 'horse_clubs');
 
-        // Retrieve the full horse list
+        // Retrieve the full horse club list
         $horseClubsList = DB::connection($this->getUser()->getRole->name)->table('horse_clubs')->paginate(20);
 
         return view('horseClubs.index', array(
@@ -63,7 +63,7 @@ class HorseClubController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\HorseClub  $horse
+     * @param  int  $idHorseClub
      * @return \Illuminate\Http\Response
      */
     public function show(int $idHorseClub)
@@ -80,7 +80,7 @@ class HorseClubController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\HorseClub  $horseClub
+     * @param  int  $idHorseClub
      * @return \Illuminate\Http\Response
      */
     public function edit(int $idHorseClub)
@@ -106,14 +106,14 @@ class HorseClubController extends Controller
      */
     public function update(Request $request, HorseClub $horseClub)
     {
-        $this->getUser()->hasPermission(['update'], 'horseClubs');
+        $this->getUser()->hasPermission(['update'], 'horse_clubs');
 
         $horseClub->setConnection($this->getUser()->getRole->name);
 
         $horseClub->fill($request->all());
 
         if ($horseClub->save()) {
-            return redirect()->route('horseClubs.show', ['idHorseClubs' => $horseClub->id])->with('success', 'Horse  clubsuccessfully updated');
+            return redirect()->route('horseclubs.show', ['idHorseClub' => $horseClub->id])->with('success', 'Horse club successfully updated');
         } else {
             return back()->withErrors('An error occurred while saving the horse club. Please try again later.');
         }
@@ -136,7 +136,7 @@ class HorseClubController extends Controller
             $horseClub = $horseClub->findOrFail($idHorseClub);
 
             if ($horseClub->delete()) {
-                return redirect()->route('horseClubs.index')->with('success', 'Horse club successfully deleted');
+                return redirect()->route('horseclubs.index')->with('success', 'Horse club successfully deleted');
             } else {
                 return back()->with('errors', 'An error occurred while deleting the horse club');
             }
@@ -163,7 +163,7 @@ class HorseClubController extends Controller
                 $request->session()->flash('errors', 'An error occurred while deleting the selected horse clubs');
             }
 
-            return 'horseClubs';
+            return 'horseclubs';
         }
     }
 }

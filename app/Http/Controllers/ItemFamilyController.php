@@ -19,7 +19,7 @@ class ItemFamilyController extends Controller
         $this->getUser()->hasPermission(['select'], 'item_families');
 
         // Retrieve the full ads list
-        $itemFamilysList = DB::connection($this->getUser()->getRole->name)->table('ItemFamilies')->paginate(20);
+        $itemFamilysList = DB::connection($this->getUser()->getRole->name)->table('item_families')->paginate(20);
 
         return view('itemFamilies.index', array(
             'itemFamilies' => $itemFamiliesList
@@ -54,7 +54,7 @@ class ItemFamilyController extends Controller
         $itemFamily->fill($request->all());
 
         if ($itemFamily->save()) {
-            return redirect()->route('itemFamilies.index')->with('success', 'Item family successfully created');
+            return redirect()->route('itemfamilies.index')->with('success', 'Item family successfully created');
         } else {
             return back()->withErrors('An error occurred while saving the Item family. Please try again later.');
         }
@@ -113,7 +113,7 @@ class ItemFamilyController extends Controller
         $itemFamily->fill($request->all());
 
         if ($itemFamily->save()) {
-            return redirect()->route('itemFamilies.show', ['idItemFamily' => $itemFamily->id])->with('success', 'Item family successfully updated');
+            return redirect()->route('itemfamilies.show', ['idItemFamily' => $itemFamily->id])->with('success', 'Item family successfully updated');
         } else {
             return back()->withErrors('An error occurred while saving the item family. Please try again later.');
         }
@@ -135,7 +135,7 @@ class ItemFamilyController extends Controller
             $itemFamily = $itemFamily->findOrFail($idItemFamily);
 
             if ($itemFamily->delete()) {
-                return redirect()->route('itemFamilies.index')->with('success', 'Item family successfully deleted');
+                return redirect()->route('itemfamilies.index')->with('success', 'Item family successfully deleted');
             } else {
                 return back()->with('errors', 'An error occurred while deleting the item family');
             }
@@ -162,7 +162,7 @@ class ItemFamilyController extends Controller
                 $request->session()->flash('errors', 'An error occurred while deleting the selected item families');
             }
 
-            return 'itemFamilies';
+            return 'itemfamilies';
         }
     }
 }
