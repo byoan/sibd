@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class WeathersListRequest extends FormRequest
+class UpdateWeathersListRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class WeathersListRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class WeathersListRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'idNewspaper' => 'required|digits_between:1,7|exists:newspapers,id',
+            'idWeather' => 'required|digits_between:1,7|exists:weathers,id'
         ];
     }
 }
