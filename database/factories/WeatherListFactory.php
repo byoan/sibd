@@ -15,8 +15,8 @@ use Faker\Generator as Faker;
 
 $factory->define(App\WeatherList::class, function (Faker $faker) {
     return [
-        'idNewspaper' => $faker->numberBetween(1, 1000000),
-        'idWeather' => $faker->numberBetween(1, 1000000),
+        'idNewspaper' => $faker->unique(true, 10000000)->numberBetween(1, 17587),
+        'idWeather' => $faker->unique(true, 10000000)->numberBetween(1, 17587),
         'created_at' => date('Y-m-d h:m:s'),
         'updated_at' => date('Y-m-d h:m:s'),
     ];

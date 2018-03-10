@@ -11,6 +11,6 @@ class WeathersListsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\WeatherList::class, 1000)->create();
+        factory(App\WeatherList::class, 17587)->create();
     }
 }
