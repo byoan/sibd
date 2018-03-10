@@ -13,7 +13,7 @@ class WeatherRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class WeatherRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'typeWeather' => 'required|string|max:191',
+            'title' => 'required|string|max:191',
+            'description' => 'required|string|max:191',
+            'picture' => 'required|url',
         ];
     }
 }

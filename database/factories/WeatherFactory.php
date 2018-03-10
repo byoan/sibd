@@ -18,7 +18,7 @@ $factory->define(App\Weather::class, function (Faker $faker) {
         'typeWeather' => $faker->word,
         'title' => $faker->word,
         'description' => $faker->sentence,
-        'picture' => $faker->imageUrl(600, 400, 'dogs'),
+        'picture' => $faker->imageUrl(600, 400, 'cats'),
         'created_at' => date('Y-m-d h:m:s'),
         'updated_at' => date('Y-m-d h:m:s'),
     ];

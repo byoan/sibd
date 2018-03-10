@@ -41,6 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('parasites', 'ParasiteController');
     Route::resource('shops', 'ShopController');
     Route::resource('users', 'UserController');
+    Route::resource('weathers', 'WeatherController');
 
     Route::prefix('database')->group(function () {
         Route::get('status', 'DatabaseController@serverStatus')->name('mysqladminStatus');

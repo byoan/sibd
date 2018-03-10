@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Weather;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\WeatherRequest;
 
 class WeatherController extends Controller
 {
@@ -18,8 +19,8 @@ class WeatherController extends Controller
         $this->getUser()->hasPermission(['select'], 'weathers');
 
         // Retrieve the full horse weather list
-        $weathersList = DB::connection($this->getUser()->getWeather->name)->table('weathers')->paginate(20);
-        
+        $weathersList = DB::connection($this->getUser()->getRole->name)->table('weathers')->paginate(20);
+
         return view('weathers.index', array(
             'weathers' => $weathersList
         ));
@@ -40,15 +41,15 @@ class WeatherController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\WeatherRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(WeatherRequest $request)
     {
         $this->getUser()->hasPermission(['insert'], 'weathers');
         // Set the connection to use after having checked the permissions
         $weather = new Weather();
-        $weather->setConnection($this->getUser()->getWeather->name);
+        $weather->setConnection($this->getUser()->getRole->name);
 
         $weather->fill($request->all());
 
@@ -65,12 +66,12 @@ class WeatherController extends Controller
      * @param  int  $idWeather
      * @return \Illuminate\Http\Response
      */
-    public function show(Int $idWeather)
+    public function show(int $idWeather)
     {
         $this->getUser()->hasPermission(['select'], 'weathers');
 
         $weather = new Weather();
-        $weather->setConnection($this->getUser()->getWeather->name);
+        $weather->setConnection($this->getUser()->getRole->name);
         $weather = $weather->findOrFail($idWeather);
 
         return view('weathers.show', ['weather' => $weather]);
@@ -82,12 +83,12 @@ class WeatherController extends Controller
      * @param  int  $idWeather
      * @return \Illuminate\Http\Response
      */
-    public function edit(Int $idWeather)
+    public function edit(int $idWeather)
     {
         $this->getUser()->hasPermission(['select'], 'weathers');
 
         $weather = new Weather();
-        $weather->setConnection($this->getUser()->getWeather->name);
+        $weather->setConnection($this->getUser()->getRole->name);
 
         $weather = $weather->findOrFail($idWeather);
 
@@ -99,15 +100,15 @@ class WeatherController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\WeatherRequest  $request
      * @param  \App\Weather  $weather
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Weather $weather)
+    public function update(WeatherRequest $request, Weather $weather)
     {
         $this->getUser()->hasPermission(['update'], 'weathers');
 
-        $weather->setConnection($this->getUser()->getWeather->name);
+        $weather->setConnection($this->getUser()->getRole->name);
 
         $weather->fill($request->all());
 
@@ -130,7 +131,7 @@ class WeatherController extends Controller
 
         if ($idWeather !== 0) {
             $weather = new Weather();
-            $weather->setConnection($this->getUser()->getWeather->name);
+            $weather->setConnection($this->getUser()->getRole->name);
             $weather = $weather->findOrFail($idWeather);
 
             if ($weather->delete()) {
@@ -144,7 +145,7 @@ class WeatherController extends Controller
 
             foreach ($weathersToDelete as $key => $weatherId) {
                 $weather = new Weather();
-                $weather->setConnection($this->getUser()->getWeather->name);
+                $weather->setConnection($this->getUser()->getRole->name);
                 $weather = $weather->findOrFail($weatherId);
 
                 if ($weather->delete()) {
