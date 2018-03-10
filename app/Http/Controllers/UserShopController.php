@@ -65,7 +65,7 @@ class UserShopController extends Controller
      * @param  int  $idUserShop
      * @return \Illuminate\Http\Response
      */
-    public function show(Int $idUserShop)
+    public function show(int $idUserShop)
     {
         $this->getUser()->hasPermission(['select'], 'user_shops');
 
@@ -82,14 +82,14 @@ class UserShopController extends Controller
      * @param  int  $idUserShop
      * @return \Illuminate\Http\Response
      */
-    public function edit(Int $idUserShop)
+    public function edit(int $idUserShop)
     {
         $this->getUser()->hasPermission(['select'], 'user_shops');
 
         $userShop = new UserShop();
         $userShop->setConnection($this->getUser()->getUserShop->name);
 
-        $shop = $shop->findOrFail($idShop);
+        $userShopshop = $userShop->findOrFail($idUseShop);
 
         return view('userShops.edit', array(
             'userShop' => $userShop
@@ -107,47 +107,47 @@ class UserShopController extends Controller
     {
         $this->getUser()->hasPermission(['update'], 'user_shops');
 
-        $shop->setConnection($this->getUser()->getShop->name);
+        $userShop->setConnection($this->getUser()->getUserShop->name);
 
-        $shop->fill($request->all());
+        $userShop->fill($request->all());
 
-        if ($shop->save()) {
-            return redirect()->route('shops.show', $shop->id)->with('success', 'Shop successfully updated');
+        if ($userShop->save()) {
+            return redirect()->route('usershops.show', $shop->id)->with('success', 'User shop successfully updated');
         } else {
-            return back()->withErrors('An error occurred while saving the shop. Please try again later.');
+            return back()->withErrors('An error occurred while saving the user shop. Please try again later.');
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $idShop
+     * @param  int  $idUserShop
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, int $idShop)
+    public function destroy(Request $request, int $idUserShop)
     {
-        $this->getUser()->hasPermission(['delete'], 'shops');
+        $this->getUser()->hasPermission(['delete'], 'user_shops');
 
-        if ($idShop !== 0) {
-            $shop = new Shop();
-            $shop->setConnection($this->getUser()->getShop->name);
-            $shop = $shop->findOrFail($idShop);
+        if ($idUserShop !== 0) {
+            $userShop = new Shop();
+            $userShop->setConnection($this->getUser()->getUserShop->name);
+            $userShop = $userShop->findOrFail($idUserShop);
 
-            if ($shop->delete()) {
-                return redirect()->route('shops.index')->with('success', 'Shop successfully deleted');
+            if ($userShop->delete()) {
+                return redirect()->route('usershops.index')->with('success', 'User shop successfully deleted');
             } else {
-                return back()->with('errors', 'An error occurred while deleting the shop');
+                return back()->with('errors', 'An error occurred while deleting the user shop');
             }
         } else {
-            $shopsToDelete = $request->input('list');
+            $userShopsToDelete = $request->input('list');
             $result = true;
 
-            foreach ($shopsToDelete as $key => $shopId) {
-                $shop = new Shop();
-                $shop->setConnection($this->getUser()->getShop->name);
-                $shop = $shop->findOrFail($shopId);
+            foreach ($userShopsToDelete as $key => $userShopId) {
+                $userShop = new UserShop();
+                $userShop->setConnection($this->getUser()->getUserShop->name);
+                $userShop = $userShop->findOrFail($userShopId);
 
-                if ($shop->delete()) {
+                if ($userShop->delete()) {
                     continue;
                 } else {
                     $result = false;
@@ -156,12 +156,12 @@ class UserShopController extends Controller
             }
 
             if ($result) {
-                $request->session()->flash('success', 'The selected shops were successfully deleted');
+                $request->session()->flash('success', 'The selected user shops were successfully deleted');
             } else {
-                $request->session()->flash('errors', 'An error occurred while deleting the selected shop');
+                $request->session()->flash('errors', 'An error occurred while deleting the selected user shop');
             }
 
-            return 'shops';
+            return 'usershops';
         }
     }
 }
