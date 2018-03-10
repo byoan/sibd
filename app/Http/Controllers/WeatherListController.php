@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\WeatherList;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreWeathersListRequest;
+use App\Http\Requests\UpdateWeathersListRequest;
 use Illuminate\Support\Facades\DB;
 
 class WeatherListController extends Controller
@@ -15,11 +17,11 @@ class WeatherListController extends Controller
      */
     public function index()
     {
-        $this->getUser()->hasPermission(['select'], '_lists');
+        $this->getUser()->hasPermission(['select'], 'weather_lists');
 
         // Retrieve the full horse weatherList list
-        $weatherListsList = DB::connection($this->getUser()->getWeatherList->name)->table('weather_lists')->paginate(20);
-        
+        $weatherListsList = DB::connection($this->getUser()->getRole->name)->table('weather_lists')->paginate(20);
+
         return view('weatherLists.index', array(
             'weatherLists' => $weatherListsList
         ));
@@ -40,15 +42,15 @@ class WeatherListController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreWeathersListRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreWeathersListRequest $request)
     {
         $this->getUser()->hasPermission(['insert'], 'weather_lists');
         // Set the connection to use after having checked the permissions
         $weatherList = new WeatherList();
-        $weatherList->setConnection($this->getUser()->getWeatherList->name);
+        $weatherList->setConnection($this->getUser()->getRole->name);
 
         $weatherList->fill($request->all());
 
@@ -65,12 +67,12 @@ class WeatherListController extends Controller
      * @param  int  $idWeatherList
      * @return \Illuminate\Http\Response
      */
-    public function show(Int $idWeather)
+    public function show(int $idWeatherList)
     {
         $this->getUser()->hasPermission(['select'], 'weather_lists');
 
         $weatherList = new WeatherList();
-        $weatherList->setConnection($this->getUser()->getWeatherList->name);
+        $weatherList->setConnection($this->getUser()->getRole->name);
         $weatherList = $weatherList->findOrFail($idWeatherList);
 
         return view('weatherLists.show', ['weatherList' => $weatherList]);
@@ -82,12 +84,12 @@ class WeatherListController extends Controller
      * @param  int  $idWeatherList
      * @return \Illuminate\Http\Response
      */
-    public function edit(Int $idWeatherList)
+    public function edit(int $idWeatherList)
     {
         $this->getUser()->hasPermission(['select'], 'weather_lists');
 
         $weatherList = new WeatherList();
-        $weatherList->setConnection($this->getUser()->getWeatherList->name);
+        $weatherList->setConnection($this->getUser()->getRole->name);
 
         $weatherList = $weatherList->findOrFail($idWeatherList);
 
@@ -99,15 +101,15 @@ class WeatherListController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdateWeathersListRequest  $request
      * @param  \App\WeatherList  $weatherList
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, WeatherList $weatherList)
+    public function update(UpdateWeathersListRequest $request, WeatherList $weatherList)
     {
         $this->getUser()->hasPermission(['update'], 'weather_lists');
 
-        $weatherList->setConnection($this->getUser()->getWeatherList->name);
+        $weatherList->setConnection($this->getUser()->getRole->name);
 
         $weatherList->fill($request->all());
 
@@ -130,7 +132,7 @@ class WeatherListController extends Controller
 
         if ($idWeatherList !== 0) {
             $weatherList = new WeatherList();
-            $weatherList->setConnection($this->getUser()->getWeatherList->name);
+            $weatherList->setConnection($this->getUser()->getRole->name);
             $weatherList = $weatherList->findOrFail($idWeatherList);
 
             if ($weatherList->delete()) {
@@ -144,7 +146,7 @@ class WeatherListController extends Controller
 
             foreach ($weatherListsToDelete as $key => $weatherListId) {
                 $weatherList = new WeatherList();
-                $weatherList->setConnection($this->getUser()->getWeatherList->name);
+                $weatherList->setConnection($this->getUser()->getRole->name);
                 $weatherList = $weatherList->findOrFail($weatherListId);
 
                 if ($weatherList->delete()) {
