@@ -15,8 +15,8 @@ use Faker\Generator as Faker;
 
 $factory->define(App\ItemList::class, function (Faker $faker) {
     return [
-        'idHorse' => $faker->numberBetween(1, 1000000),
-        'idItem' => $faker->numberBetween(1, 1000000),
+        'idHorse' => $faker->numberBetween(1, 100000),
+        'idItem' => $faker->numberBetween(1, 100000),
         'created_at' => date('Y-m-d h:m:s'),
         'updated_at' => date('Y-m-d h:m:s'),
     ];
