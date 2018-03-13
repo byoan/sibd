@@ -15,8 +15,8 @@ use Faker\Generator as Faker;
 
 $factory->define(App\NewsList::class, function (Faker $faker) {
     return [
-        'idNewspaper' => $faker->numberBetween(1, 1000000),
-        'idNews' => $faker->numberBetween(1, 1000000),
+        'idNewspaper' => $faker->numberBetween(1, 17587),
+        'idNews' => $faker->numberBetween(1, 100000),
         'created_at' => date('Y-m-d h:m:s'),
         'updated_at' => date('Y-m-d h:m:s'),
     ];

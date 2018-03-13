@@ -13,7 +13,7 @@ class NewsListRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class NewsListRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'idNewspaper' => 'required|digits_between:1,7|exists:newspapers,id',
+            'idNews' => 'required|digits_between:1,7|exists:news,id',
         ];
     }
 }

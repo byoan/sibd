@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('items', 'ItemController');
     Route::resource('itemslist', 'ItemListController');
     Route::resource('news', 'NewsController');
+    Route::resource('newslists', 'NewsListController');
     Route::resource('newspapers', 'NewspaperController');
     Route::resource('parasites', 'ParasiteController');
     Route::resource('shops', 'ShopController');
