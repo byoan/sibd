@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ParasiteList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ParasiteListRequest;
 
 class ParasiteListController extends Controller
 {
@@ -21,7 +22,7 @@ class ParasiteListController extends Controller
         $parasiteListsList = DB::connection($this->getUser()->getRole->name)->table('parasite_lists')->paginate(20);
 
         return view('parasiteLists.index', array(
-            'parasiteLists' => $parasiteListsList
+            'parasites' => $parasiteListsList
         ));
     }
 
@@ -40,10 +41,10 @@ class ParasiteListController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\ParasiteListRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ParasiteListRequest $request)
     {
         $this->getUser()->hasPermission(['insert'], 'parasite_lists');
         // Set the connection to use after having checked the permissions
@@ -53,9 +54,9 @@ class ParasiteListController extends Controller
         $parasiteList->fill($request->all());
 
         if ($parasiteList->save()) {
-            return redirect()->route('parasitelists.index')->with('success', 'ParasiteList successfully created');
+            return redirect()->route('parasiteslists.index')->with('success', 'Parasite relation successfully created');
         } else {
-            return back()->withErrors('An error occurred while saving the parasiteList. Please try again later.');
+            return back()->withErrors('An error occurred while saving the relation. Please try again later.');
         }
     }
 
@@ -73,7 +74,7 @@ class ParasiteListController extends Controller
         $parasiteList->setConnection($this->getUser()->getRole->name);
         $parasiteList = $parasiteList->findOrFail($idParasiteList);
 
-        return view('parasitelists.show', ['parasiteList' => $parasiteList]);
+        return view('parasitelists.show', ['parasite' => $parasiteList]);
     }
 
     /**
@@ -92,7 +93,7 @@ class ParasiteListController extends Controller
         $parasiteList = $parasiteList->findOrFail($idParasiteList);
 
         return view('parasiteLists.edit', array(
-            'parasiteList' => $parasiteList
+            'parasite' => $parasiteList
         ));
     }
 
@@ -100,21 +101,21 @@ class ParasiteListController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ParasiteList  $parasiteList
+     * @param  int  $idParasiteList
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ParasiteList $parasiteList)
+    public function update(Request $request, int $idParasiteList)
     {
         $this->getUser()->hasPermission(['update'], 'parasite_lists');
-
+        $parasiteList = new ParasiteList();
         $parasiteList->setConnection($this->getUser()->getRole->name);
-
+        $parasiteList = $parasiteList->findOrFail($idParasiteList);
         $parasiteList->fill($request->all());
 
         if ($parasiteList->save()) {
-            return redirect()->route('parasitelists.show', $parasiteList->id)->with('success', 'ParasiteList successfully updated');
+            return redirect()->route('parasiteslists.show', $parasiteList->id)->with('success', 'Relation successfully updated');
         } else {
-            return back()->withErrors('An error occurred while saving the parasiteList. Please try again later.');
+            return back()->withErrors('An error occurred while saving the relation. Please try again later.');
         }
     }
 
@@ -134,9 +135,9 @@ class ParasiteListController extends Controller
             $parasiteList = $parasiteList->findOrFail($idParasiteList);
 
             if ($parasiteList->delete()) {
-                return redirect()->route('parasitelists.index')->with('success', 'ParasiteList successfully deleted');
+                return redirect()->route('parasiteslists.index')->with('success', 'Parasite-horse relation successfully deleted');
             } else {
-                return back()->with('errors', 'An error occurred while deleting the parasiteList');
+                return back()->with('errors', 'An error occurred while deleting the relation');
             }
         } else {
             $parasiteListsToDelete = $request->input('list');
@@ -156,12 +157,12 @@ class ParasiteListController extends Controller
             }
 
             if ($result) {
-                $request->session()->flash('success', 'The selected parasiteLists were successfully deleted');
+                $request->session()->flash('success', 'The selected parasite horses relations were successfully deleted');
             } else {
-                $request->session()->flash('errors', 'An error occurred while deleting the selected parasiteList');
+                $request->session()->flash('errors', 'An error occurred while deleting the selected relations');
             }
 
-            return 'parasitelists';
+            return 'parasiteslists';
         }
     }
 }

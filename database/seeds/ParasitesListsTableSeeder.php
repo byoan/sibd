@@ -11,6 +11,6 @@ class ParasitesListsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\ParasiteList::class, 1000)->create();
+        factory(App\ParasiteList::class, 100000)->create();
     }
 }

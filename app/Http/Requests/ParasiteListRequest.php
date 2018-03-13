@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ParasitesListRequest extends FormRequest
+class ParasiteListRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class ParasitesListRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class ParasitesListRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'idParasite' => 'required|digits_between:1,7|exists:parasites,id',
+            'idHorse' => 'required|digits_between:1,7|exists:horses,id',
         ];
     }
 }
