@@ -24,7 +24,8 @@ class ParasiteRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'typeParasite' => 'required|string|max:191',
+            'description' => 'required|string',
         ];
     }
 }

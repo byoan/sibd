@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Parasite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ParasiteRequest;
 
 class ParasiteController extends Controller
 {
@@ -40,10 +41,10 @@ class ParasiteController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\ParasiteRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ParasiteRequest $request)
     {
         $this->getUser()->hasPermission(['insert'], 'parasites');
         // Set the connection to use after having checked the permissions

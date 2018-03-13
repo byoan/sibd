@@ -16,7 +16,7 @@ class CreateParasitesTable extends Migration
         Schema::create('parasites', function (Blueprint $table) {
             $table->increments('id');
             $table->string('typeParasite');
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
         });
     }
