@@ -18,7 +18,7 @@ $factory->define(App\Item::class, function (Faker $faker) {
         'type' => $faker->word,
         'level' => $faker->numberBetween(1, 100),
         'description' => $faker->text(100),
-        'family' => $faker->word,
+        'family' => $faker->numberBetween(1, 10),
         'price' => $faker->randomFloat(3, 1, 100),
         'created_at' => date('Y-m-d h:m:s'),
         'updated_at' => date('Y-m-d h:m:s'),
