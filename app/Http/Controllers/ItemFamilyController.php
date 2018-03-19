@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\ItemFamily;
 use Illuminate\Http\Request;
-use App\Http\Requests\ItemFamilyRequest;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ItemFamilyRequest;
 
 class ItemFamilyController extends Controller
 {
@@ -18,8 +18,8 @@ class ItemFamilyController extends Controller
     {
         $this->getUser()->hasPermission(['select'], 'item_families');
 
-        // Retrieve the full ads list
-        $itemFamilysList = DB::connection($this->getUser()->getRole->name)->table('item_families')->paginate(20);
+        // Retrieve the full item families list
+        $itemFamiliesList = DB::connection($this->getUser()->getRole->name)->table('item_families')->paginate(20);
 
         return view('itemFamilies.index', array(
             'itemFamilies' => $itemFamiliesList
@@ -41,7 +41,7 @@ class ItemFamilyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\ItemFamilyRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(ItemFamilyRequest $request)
@@ -104,12 +104,13 @@ class ItemFamilyController extends Controller
      * @param  \App\ItemFamily  $ItemFamily
      * @return \Illuminate\Http\Response
      */
-    public function update(ItemFamilyRequest $request, ItemFamily $itemFamily)
+    public function update(ItemFamilyRequest $request, int $itemFamilyId)
     {
         $this->getUser()->hasPermission(['update'], 'item_families');
-
+        $itemFamily = new ItemFamily();
         $itemFamily->setConnection($this->getUser()->getRole->name);
 
+        $itemFamily = $itemFamily->findOrFail($itemFamilyId);
         $itemFamily->fill($request->all());
 
         if ($itemFamily->save()) {

@@ -24,7 +24,8 @@ class ItemFamilyRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'familyName' => 'required|string|max:191',
+            'description' => 'required|string'
         ];
     }
 }
