@@ -54,7 +54,7 @@ class User extends Authenticatable
         if (!empty($rolePermissions)) {
             foreach ($actions as $action) {
                 if (!isset($rolePermissions[$target]) || !in_array($action, $rolePermissions[$target]) && !$rolePermissions == '*') {
-                    abort(403, 'You are not allowed to access this page');
+                    abort(403);
                 }
             }
         } else {

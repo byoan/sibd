@@ -48,6 +48,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        // Custom error in case we have a 403 error
+        if ($exception instanceof HttpException) {
+            $statusCode = $exception->getStatusCode();
+            if (view()->exists('errors.'.$statusCode)) {
+                return response(view('errors.'.$statusCode), $statusCode);
+            }
+        }
         return parent::render($request, $exception);
     }
 }
