@@ -31,6 +31,7 @@
                         <p><a href="{{ route('items.index') }}">Items</a></p>
                         <p><a href="{{ route('news.index') }}">News</a></p>
                         <p><a href="{{ route('newspapers.index') }}">Newspapers</a></p>
+                        <p><a href="{{ route('shops.index') }}">Shops</a></p>
                         <p><a href="{{ route('users.index') }}">Users</a></p>
                         <p><a href="{{ route('weathers.index') }}">Weathers</a></p>
                         <p><a href="{{ route('weatherlists.index') }}">Weathers List</a></p>
