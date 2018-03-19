@@ -31,6 +31,7 @@
                 <th scope="col">Id</th>
                 <th scope="col">HorseList</th>
                 <th scope="col">ItemList</th>
+                <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,9 +41,6 @@
                         <td>{{ $shop->id }}</td>
                         <td>{{ $shop->horseList }}</td>
                         <td>{{ $shop->itemList }}</td>
-                        <td>{{ $shop->infraList }}</td>
-                        <td>{{ $shop->ridingStableList }}</td>
-                        <td>{{ $shop->horseClubList }}</td>
                         <td class="tdActions">
                             <a href="{{ route('shops.show', ['id' => $shop->id]) }}" class="btn btn-info">View</a>
                             <a href="{{ route('shops.edit', ['id' => $shop->id]) }}" class="btn btn-dark">Edit</a>
