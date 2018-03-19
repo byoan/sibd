@@ -20,7 +20,7 @@ class NewspaperController extends Controller
         $this->getUser()->hasPermission(['select'], 'newspapers');
 
         // Retrieve the full newspapers list
-        $newspapers = DB::connection($this->getUser()->getRole->name)->table('newspapers')->paginate(20);
+        $newspapers = DB::connection($this->getUser()->getRole->name)->table('newspapers')->orderBy('dayDate', 'desc')->paginate(20);
 
         return view('newspapers.index', array(
             'newspapers' => $newspapers
