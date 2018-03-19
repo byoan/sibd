@@ -26,9 +26,10 @@
 <br />
 <div>
     <h3>Informations</h3>
-    <p>{{ $item->type }}</p>
-    <p>{{ $item->level }}</p>
-    <p>{{ $item->description }}</p>
-    <p>{{ $item->price }}</p>
+    <p>Item type : {{ $item->type }}</p>
+    <p>Item level : {{ $item->level }}</p>
+    <p>Item description : {{ $item->description }}</p>
+    <p>Item price : {{ $item->price }}</p>
+    <p>Item family : <a href="/itemfamilies/{{ $item->family }}" title="Go to the family details">{{ $item->family }}</a></p>
 </div>
 @endsection
