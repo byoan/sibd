@@ -19,9 +19,8 @@ $factory->define(App\HorseClub::class, function (Faker $faker) {
         'infraList' => json_encode(array($faker->randomNumber(4), $faker->randomNumber(4), $faker->randomNumber(4))),
         'contestList' => json_encode(array($faker->randomNumber(4), $faker->randomNumber(4), $faker->randomNumber(4))),
         'userList' => json_encode(array($faker->randomNumber(4), $faker->randomNumber(4), $faker->randomNumber(4))),
-        'idUser' => $faker->numberBetween(1, 1000000),
+        'idUser' => $faker->numberBetween(1, 100000),
         'created_at' => date('Y-m-d h:m:s'),
         'updated_at' => date('Y-m-d h:m:s'),
-
     ];
 });

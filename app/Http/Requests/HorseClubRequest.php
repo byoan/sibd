@@ -24,7 +24,11 @@ class HorseClubRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'capacity' => 'required|integer|between:1,100',
+            'infraList' => 'required|string|max:500',
+            'contestList' => 'required|string|max:500',
+            'userList' => 'required|string|max:500',
+            'idUser' => 'required|integer|exists:users,id'
         ];
     }
 }

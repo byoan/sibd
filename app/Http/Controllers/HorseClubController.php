@@ -53,8 +53,26 @@ class HorseClubController extends Controller
 
         $horseClub->fill($request->all());
 
+        $validList = $this->validateItemLists($request->input('infraList'));
+        if (!$validList) {
+            return back()->withErrors('Please enter a valid list of ids for the infrastructures list');
+        }
+        $horseClub->infraList = json_encode($validList);
+
+        $validList = $this->validateItemLists($request->input('contestList'));
+        if (!$validList) {
+            return back()->withErrors('Please enter a valid list of ids for the contests list');
+        }
+        $horseClub->contestList = json_encode($validList);
+
+        $validList = $this->validateItemLists($request->input('userList'));
+        if (!$validList) {
+            return back()->withErrors('Please enter a valid list of ids for the members list');
+        }
+        $horseClub->userList = json_encode($validList);
+
         if ($horseClub->save()) {
-            return redirect()->route('horseClubs.index')->with('success', 'Horse club successfully created');
+            return redirect()->route('horseclubs.index')->with('success', 'Horse club successfully created');
         } else {
             return back()->withErrors('An error occurred while saving the horse club. Please try again later.');
         }
@@ -74,6 +92,10 @@ class HorseClubController extends Controller
         $horseClub->setConnection($this->getUser()->getRole->name);
         $horseClub = $horseClub->findOrFail($idHorseClub);
 
+        $horseClub->infraList = json_decode($horseClub->infraList);
+        $horseClub->contestList = json_decode($horseClub->contestList);
+        $horseClub->userList = json_decode($horseClub->userList);
+
         return view('horseClubs.show', ['horseClub' => $horseClub]);
     }
 
@@ -91,6 +113,9 @@ class HorseClubController extends Controller
         $horseClub->setConnection($this->getUser()->getRole->name);
 
         $horseClub = $horseClub->findOrFail($idHorseClub);
+        $horseClub->infraList = implode('/', json_decode($horseClub->infraList));
+        $horseClub->contestList = implode('/', json_decode($horseClub->contestList));
+        $horseClub->userList = implode('/', json_decode($horseClub->userList));
 
         return view('horseClubs.edit', array(
             'horseClub' => $horseClub
@@ -100,17 +125,36 @@ class HorseClubController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\HorseClub  $horseClub
+     * @param  \App\Http\Requests\HorseClubRequest  $request
+     * @param  int  $horseClubId
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, HorseClub $horseClub)
+    public function update(HorseClubRequest $request, int $horseClubId)
     {
         $this->getUser()->hasPermission(['update'], 'horse_clubs');
-
+        $horseClub = new HorseClub();
         $horseClub->setConnection($this->getUser()->getRole->name);
 
+        $horseClub = $horseClub->findOrFail($horseClubId);
         $horseClub->fill($request->all());
+
+        $validList = $this->validateItemLists($request->input('infraList'));
+        if (!$validList) {
+            return back()->withErrors('Please enter a valid list of ids for the infrastructures list');
+        }
+        $horseClub->infraList = json_encode($validList);
+
+        $validList = $this->validateItemLists($request->input('contestList'));
+        if (!$validList) {
+            return back()->withErrors('Please enter a valid list of ids for the contests list');
+        }
+        $horseClub->contestList = json_encode($validList);
+
+        $validList = $this->validateItemLists($request->input('userList'));
+        if (!$validList) {
+            return back()->withErrors('Please enter a valid list of ids for the members list');
+        }
+        $horseClub->userList = json_encode($validList);
 
         if ($horseClub->save()) {
             return redirect()->route('horseclubs.show', ['idHorseClub' => $horseClub->id])->with('success', 'Horse club successfully updated');
@@ -164,6 +208,31 @@ class HorseClubController extends Controller
             }
 
             return 'horseclubs';
+        }
+    }
+
+    /**
+     * Validates the received string as the items list
+     *
+     * @param string $list The items list sent in the update/store form
+     */
+    private function validateItemLists(string $list)
+    {
+        $valid = true;
+
+        $explodedItemsList = explode('/', $list);
+        foreach ($explodedItemsList as $item) {
+            $item = (int)$item;
+            if (is_int($item) && $item > 0 && $item <= 1000000) {
+                continue;
+            }
+            $valid = false;
+        }
+
+        if ($valid) {
+            return $explodedItemsList;
+        } else {
+            return false;
         }
     }
 }
