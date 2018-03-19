@@ -51,10 +51,18 @@ class User extends Authenticatable
     public function hasPermission(array $actions, string $target)
     {
         $rolePermissions = Config::get('permissions.' . Role::find($this->role)->name);
+        // If we are super admin, don't even bother checking
+        if ($rolePermissions == '*') {
+            return;
+        }
         if (!empty($rolePermissions)) {
             foreach ($actions as $action) {
-                if (!isset($rolePermissions[$target]) || !in_array($action, $rolePermissions[$target]) && !$rolePermissions == '*') {
+                if (!isset($rolePermissions[$target])) {
                     abort(403);
+                } else {
+                    if (!in_array($action, $rolePermissions[$target])) {
+                        abort(403);
+                    }
                 }
             }
         } else {

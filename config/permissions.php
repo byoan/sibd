@@ -6,6 +6,6 @@ return [
         'user' => array('delete', 'update')
     ),
     'specialist' => array(
-        'horse' => array('select', 'update')
+        'horses' => array('select', 'update')
     )
 ];
