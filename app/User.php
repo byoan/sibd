@@ -53,7 +53,7 @@ class User extends Authenticatable
         $rolePermissions = Config::get('permissions.' . Role::find($this->role)->name);
         if (!empty($rolePermissions)) {
             foreach ($actions as $action) {
-                if (!(isset($rolePermissions[$target]) && in_array($action, $rolePermissions[$target])) && !$rolePermissions == '*') {
+                if (!isset($rolePermissions[$target]) || !in_array($action, $rolePermissions[$target]) && !$rolePermissions == '*') {
                     abort(403, 'You are not allowed to access this page');
                 }
             }
