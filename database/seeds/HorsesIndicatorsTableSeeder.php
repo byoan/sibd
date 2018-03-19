@@ -11,6 +11,6 @@ class HorsesIndicatorsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\HorseIndicator::class, 1000)->create();
+        factory(App\HorseIndicators::class, 1000000)->create();
     }
 }
