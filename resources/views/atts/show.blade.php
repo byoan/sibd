@@ -26,7 +26,7 @@
 <br />
 <div>
     <h3>Informations</h3>
-    <p>Name : {{ $att->nale }}</p>
+    <p>Name : {{ $att->name }}</p>
     <p>Value : {{ $att->value }}</p>
 </div>
 @endsection
