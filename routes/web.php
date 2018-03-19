@@ -28,6 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('contests', 'ContestController');
     Route::resource('diseases', 'DiseaseController');
     Route::resource('diseasesLists', 'DiseaseListController');
+    Route::resource('horseatts', 'HorseAttController');
     Route::resource('horseclubs', 'HorseClubController');
     Route::resource('horses', 'HorseController');
     Route::resource('indicators', 'IndicatorController');
