@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1>Shop details</h1>
+<h1>Riding stable details</h1>
 <hr />
 
 @if (session('success'))
@@ -14,8 +14,8 @@
 <div class="detailsEditButtonRow">
     <h2>RidingStable id : {{ $ridingStable->id }}</h2>
     <div class="detailsButtonsContainer">
-        <a class="btn btn-dark" href="{{ route('ridingStables.edit', $ridingStable->id) }}">Edit</a>
-        <form method="POST" action="{{ route('ridingStables.destroy', $ridingStable->id) }}">
+        <a class="btn btn-dark" href="{{ route('ridingstables.edit', $ridingStable->id) }}">Edit</a>
+        <form method="POST" action="{{ route('ridingstables.destroy', $ridingStable->id) }}">
             {{ csrf_field() }}
             @method('DELETE')
             <input type="hidden" name="id" value="{{ $ridingStable->id }}">
@@ -30,16 +30,16 @@
 
     <h2>InfraList : </h2>
     <ul>
-        {% for infrastructure in infraList %}
-        <li>{{infrastructure}}</li>
-        {% endfor %}
+        @foreach ($ridingStable->infraList as $id => $infrastructure)
+            <li><a href="/infrastructures/{{ $infrastructure }}" title="Go to infrastructure details">{{ $infrastructure }}</a></li>
+        @endforeach
     </ul>
 
     <h2>AutoTaskList : </h2>
     <ul>
-        {% for autoTask in autoTaskList %}
-        <li>{{autoTask}}</li>
-        {% endfor %}
-    </ul>        
+        @foreach ($ridingStable->autoTaskList as $id => $task)
+            <li><a href="/autotasks/{{ $task }}" title="Go to task details">{{ $task }}</a></li>
+        @endforeach
+    </ul>
 </div>
 @endsection

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class RidingStablesListsTableSeeder extends Seeder
+class RidingStablesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class RidingStablesListsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\RidingStable::class, 1000)->create();
+        factory(App\RidingStable::class, 100000)->create();
     }
 }

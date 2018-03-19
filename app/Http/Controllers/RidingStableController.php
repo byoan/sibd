@@ -18,8 +18,8 @@ class RidingStableController extends Controller
         $this->getUser()->hasPermission(['select'], 'riding_stables');
 
         // Retrieve the full horse ridingStable list
-        $ridingStablesList = DB::connection($this->getUser()->getRidingStable->name)->table('ridingStables')->paginate(20);
-        
+        $ridingStablesList = DB::connection($this->getUser()->getRole->name)->table('riding_stables')->paginate(20);
+
         return view('ridingStables.index', array(
             'ridingStables' => $ridingStablesList
         ));
@@ -32,7 +32,7 @@ class RidingStableController extends Controller
      */
     public function create()
     {
-        $this->getUser()->hasPermission(['insert'], 'ridingStables');
+        $this->getUser()->hasPermission(['insert'], 'riding_stables');
 
         return view('ridingStables.create');
     }
@@ -45,15 +45,27 @@ class RidingStableController extends Controller
      */
     public function store(Request $request)
     {
-        $this->getUser()->hasPermission(['insert'], 'ridingStables');
+        $this->getUser()->hasPermission(['insert'], 'riding_stables');
         // Set the connection to use after having checked the permissions
         $ridingStable = new RidingStable();
-        $ridingStable->setConnection($this->getUser()->getRidingStable->name);
+        $ridingStable->setConnection($this->getUser()->getRole->name);
 
         $ridingStable->fill($request->all());
 
+        $validList = $this->validateItemLists($request->input('infraList'));
+        if (!$validList) {
+            return back()->withErrors('Please enter a valid list of ids for the infrastructures list');
+        }
+        $ridingStable->infraList = json_encode($validList);
+
+        $validList = $this->validateItemLists($request->input('autoTaskList'));
+        if (!$validList) {
+            return back()->withErrors('Please enter a valid list of ids for the automated tasks list');
+        }
+        $ridingStable->autoTaskList = json_encode($validList);
+
         if ($ridingStable->save()) {
-            return redirect()->route('ridingStables.index')->with('success', 'Riding stable successfully created');
+            return redirect()->route('ridingstables.index')->with('success', 'Riding stable successfully created');
         } else {
             return back()->withErrors('An error occurred while saving the riding stable. Please try again later.');
         }
@@ -67,13 +79,16 @@ class RidingStableController extends Controller
      */
     public function show(Int $idRidingStable)
     {
-        $this->getUser()->hasPermission(['select'], 'ridingStables');
+        $this->getUser()->hasPermission(['select'], 'riding_stables');
 
         $ridingStable = new RidingStable();
-        $ridingStable->setConnection($this->getUser()->getRidingStable->name);
+        $ridingStable->setConnection($this->getUser()->getRole->name);
         $ridingStable = $ridingStable->findOrFail($idRidingStable);
 
-        return view('ridingStables.show', ['ridingStables' => $ridingStables]);
+        $ridingStable->infraList = json_decode($ridingStable->infraList);
+        $ridingStable->autoTaskList = json_decode($ridingStable->autoTaskList);
+
+        return view('ridingStables.show', ['ridingStable' => $ridingStable]);
     }
 
     /**
@@ -84,12 +99,14 @@ class RidingStableController extends Controller
      */
     public function edit(Int $idRidingStable)
     {
-        $this->getUser()->hasPermission(['select'], 'ridingStables');
+        $this->getUser()->hasPermission(['select'], 'riding_stables');
 
         $ridingStable = new RidingStable();
-        $ridingStable->setConnection($this->getUser()->getRidingStable->name);
+        $ridingStable->setConnection($this->getUser()->getRole->name);
 
         $ridingStable = $ridingStable->findOrFail($idRidingStable);
+        $ridingStable->infraList = implode('/', json_decode($ridingStable->infraList));
+        $ridingStable->autoTaskList = implode('/', json_decode($ridingStable->autoTaskList));
 
         return view('ridingStables.edit', array(
             'ridingStable' => $ridingStable
@@ -100,19 +117,32 @@ class RidingStableController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\RidingStable  $ridingStable
+     * @param  int  $ridingStableId
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RidingStable $ridingStable)
+    public function update(Request $request, int $ridingStableId)
     {
-        $this->getUser()->hasPermission(['update'], 'ridingStables');
+        $this->getUser()->hasPermission(['update'], 'riding_stables');
 
-        $ridingStable->setConnection($this->getUser()->getRidingStable->name);
-
+        $ridingStable = new RidingStable();
+        $ridingStable->setConnection($this->getUser()->getRole->name);
+        $ridingStable = $ridingStable->findOrFail($ridingStableId);
         $ridingStable->fill($request->all());
 
+        $validList = $this->validateItemLists($request->input('infraList'));
+        if (!$validList) {
+            return back()->withErrors('Please enter a valid list of ids for the infrastructures list');
+        }
+        $ridingStable->infraList = json_encode($validList);
+
+        $validList = $this->validateItemLists($request->input('autoTaskList'));
+        if (!$validList) {
+            return back()->withErrors('Please enter a valid list of ids for the automated tasks list');
+        }
+        $ridingStable->autoTaskList = json_encode($validList);
+
         if ($ridingStable->save()) {
-            return redirect()->route('ridingStables.show', $ridingStable->id)->with('success', 'Riding stable successfully updated');
+            return redirect()->route('ridingstables.show', $ridingStable->id)->with('success', 'Riding stable successfully updated');
         } else {
             return back()->withErrors('An error occurred while saving the riding stable. Please try again later.');
         }
@@ -126,15 +156,15 @@ class RidingStableController extends Controller
      */
     public function destroy(Request $request, int $idRidingStable)
     {
-        $this->getUser()->hasPermission(['delete'], 'ridingStables');
+        $this->getUser()->hasPermission(['delete'], 'riding_stables');
 
         if ($idRidingStable !== 0) {
             $ridingStable = new RidingStable();
-            $ridingStable->setConnection($this->getUser()->getRidingStable->name);
+            $ridingStable->setConnection($this->getUser()->getRole->name);
             $ridingStable = $ridingStable->findOrFail($idRidingStable);
 
             if ($ridingStable->delete()) {
-                return redirect()->route('ridingStables.index')->with('success', 'Riding stable successfully deleted');
+                return redirect()->route('ridingstables.index')->with('success', 'Riding stable successfully deleted');
             } else {
                 return back()->with('errors', 'An error occurred while deleting the riding stable');
             }
@@ -144,7 +174,7 @@ class RidingStableController extends Controller
 
             foreach ($ridingStablesToDelete as $key => $ridingStableId) {
                 $ridingStable = new RidingStable();
-                $ridingStable->setConnection($this->getUser()->getRidingStable->name);
+                $ridingStable->setConnection($this->getUser()->getRole->name);
                 $ridingStable = $ridingStable->findOrFail($ridingStableId);
 
                 if ($ridingStable->delete()) {
@@ -161,7 +191,32 @@ class RidingStableController extends Controller
                 $request->session()->flash('errors', 'An error occurred while deleting the selected riding stable');
             }
 
-            return 'ridingStables';
+            return 'ridingstables';
+        }
+    }
+
+    /**
+     * Validates the received string as the items list
+     *
+     * @param string $list The items list sent in the update/store form
+     */
+    private function validateItemLists(string $list)
+    {
+        $valid = true;
+
+        $explodedItemsList = explode('/', $list);
+        foreach ($explodedItemsList as $item) {
+            $item = (int)$item;
+            if (is_int($item) && $item > 0 && $item <= 1000000) {
+                continue;
+            }
+            $valid = false;
+        }
+
+        if ($valid) {
+            return $explodedItemsList;
+        } else {
+            return false;
         }
     }
 }
