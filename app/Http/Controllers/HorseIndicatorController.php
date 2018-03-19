@@ -54,7 +54,7 @@ class HorseIndicatorController extends Controller
         $horseIndicator->fill($request->all());
 
         if ($horseIndicator->save()) {
-            return redirect()->route('horseIndicators.index')->with('success', 'Horse indicator successfully created');
+            return redirect()->route('horseindicators.index')->with('success', 'Horse indicator successfully created');
         } else {
             return back()->withErrors('An error occurred while saving the horse indicator. Please try again later.');
         }
@@ -92,8 +92,8 @@ class HorseIndicatorController extends Controller
 
         $horseIndicator = $horseIndicator->findOrFail($idHorseIndicator);
 
-        return view('HorseIndicators.edit', array(
-            'HorseIndicator' => $HorseIndicator
+        return view('horseIndicators.edit', array(
+            'horseIndicator' => $horseIndicator
         ));
     }
 
@@ -101,19 +101,20 @@ class HorseIndicatorController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\HorseIndicator  $horseIndicator
+     * @param  int  $horseIndicatorId
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, HorseIndicator $horseIndicator)
+    public function update(HorseIndicatorRequest $request, int $horseIndicatorId)
     {
         $this->getUser()->hasPermission(['update'], 'horse_indicators');
-
+        $horseIndicator = new HorseIndicator();
         $horseIndicator->setConnection($this->getUser()->getRole->name);
 
+        $horseIndicator = $horseIndicator->findOrFail($horseIndicatorId);
         $horseIndicator->fill($request->all());
 
         if ($horseIndicator->save()) {
-            return redirect()->route('horseIndicators.show', ['idHorseIndicators' => $horseIndicator->id])->with('success', 'Horse indicator successfully updated');
+            return redirect()->route('horseindicators.show', ['idHorseIndicators' => $horseIndicator->id])->with('success', 'Horse indicator successfully updated');
         } else {
             return back()->withErrors('An error occurred while saving the horse indicator. Please try again later.');
         }
@@ -136,9 +137,9 @@ class HorseIndicatorController extends Controller
             $HorseIndicator = $HorseIndicator->findOrFail($idHorseIndicator);
 
             if ($HorseIndicator->delete()) {
-                return redirect()->route('horseIndicators.index')->with('success', 'Horse indicator successfully deleted');
+                return redirect()->route('horseindicators.index')->with('success', 'Horse-indicator relation successfully deleted');
             } else {
-                return back()->with('errors', 'An error occurred while deleting the horse indicator');
+                return back()->with('errors', 'An error occurred while deleting the horse-indicator relation');
             }
         } else {
             $horseIndicatorsToDelete = $request->input('list');
@@ -158,9 +159,9 @@ class HorseIndicatorController extends Controller
             }
 
             if ($result) {
-                $request->session()->flash('success', 'The selected horse indicators were successfully deleted');
+                $request->session()->flash('success', 'The selected horse-indicator relations were successfully deleted');
             } else {
-                $request->session()->flash('errors', 'An error occurred while deleting the selected horse indicators');
+                $request->session()->flash('errors', 'An error occurred while deleting the selected horse-indicator relations');
             }
 
             return 'horseindicators';

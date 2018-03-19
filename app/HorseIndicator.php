@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class HorseIndicators extends Model
+class HorseIndicator extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,6 +12,6 @@ class HorseIndicators extends Model
      * @var array
      */
     protected $fillable = [
-        'idHorse','idIndicator'
+        'idHorse', 'idIndicator'
     ];
 }

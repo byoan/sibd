@@ -24,7 +24,8 @@ class HorseIndicatorRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'idHorse' => 'required|integer|exists:horses,id',
+            'idIndicator' => 'required|integer|exists:indicators,id',
         ];
     }
 }

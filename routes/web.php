@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('horseatts', 'HorseAttController');
     Route::resource('horseclubs', 'HorseClubController');
     Route::resource('horses', 'HorseController');
+    Route::resource('horseindicators', 'HorseIndicatorController');
     Route::resource('indicators', 'IndicatorController');
     Route::resource('infrastructures', 'InfrastructureController');
     Route::resource('injuries', 'InjuriesController');

@@ -13,7 +13,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\HorseIndicators::class, function (Faker $faker) {
+$factory->define(App\HorseIndicator::class, function (Faker $faker) {
     return [
         'idHorse' => $faker->unique(false, 1000000)->numberBetween(1, 1000000),
         'idIndicator' => $faker->numberBetween(1, 100000),
