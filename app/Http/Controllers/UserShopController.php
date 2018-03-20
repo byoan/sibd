@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\UserShop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\UserShopRequest;
 
 class UserShopController extends Controller
 {
@@ -18,10 +19,10 @@ class UserShopController extends Controller
         $this->getUser()->hasPermission(['select'], 'user_shops');
 
         // Retrieve the full horse shop list
-        $userShopsList = DB::connection($this->getUser()->getUserShop->name)->table('userShops')->paginate(20);
-        
+        $userShopsList = DB::connection($this->getUser()->getRole->name)->table('user_shops')->paginate(20);
+
         return view('userShops.index', array(
-            'userShops' => $userShopsList
+            'shops' => $userShopsList
         ));
     }
 
@@ -43,20 +44,52 @@ class UserShopController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserShopRequest $request)
     {
         $this->getUser()->hasPermission(['insert'], 'user_shops');
         // Set the connection to use after having checked the permissions
-        $userShop = new Shop();
-        $userShop->setConnection($this->getUser()->getUserShop->name);
+        $shop = new UserShop();
+        $shop->setConnection($this->getUser()->getRole->name);
 
-        $userShop->fill($request->all());
+        $shop->fill($request->all());
 
-        if ($userShop->save()) {
-            return redirect()->route('userShops.index')->with('success', 'user shop successfully created');
+        $validList = $this->validateItemLists($request->input('horseList'));
+        if (!$validList) {
+            return back()->withErrors('Please enter a valid list of ids for the horses list');
+        }
+        $shop->horseList = json_encode($validList);
+
+        $validList = $this->validateItemLists($request->input('itemList'));
+        if (!$validList) {
+            return back()->withErrors('Please enter a valid list of ids for the items list');
+        }
+        $shop->itemList = json_encode($validList);
+
+        $validList = $this->validateItemLists($request->input('infraList'));
+        if (!$validList) {
+            return back()->withErrors('Please enter a valid list of ids for the infrastructures list');
+        }
+        $shop->infraList = json_encode($validList);
+
+        $validList = $this->validateItemLists($request->input('ridingStableList'));
+        if (!$validList) {
+            return back()->withErrors('Please enter a valid list of ids for the riding stables list');
+        }
+        $shop->ridingStableList = json_encode($validList);
+
+        $validList = $this->validateItemLists($request->input('horseClubList'));
+        if (!$validList) {
+            return back()->withErrors('Please enter a valid list of ids for the horse clubs list');
+        }
+        $shop->horseClubList = json_encode($validList);
+        $shop->idUser = (int)$request->input('idUser');
+
+        if ($shop->save()) {
+            return redirect()->route('usershops.index')->with('success', 'User shop successfully created');
         } else {
             return back()->withErrors('An error occurred while saving the user shop. Please try again later.');
         }
+
     }
 
     /**
@@ -69,11 +102,17 @@ class UserShopController extends Controller
     {
         $this->getUser()->hasPermission(['select'], 'user_shops');
 
-        $userShop = new UserShop();
-        $userShop->setConnection($this->getUser()->getUserShop->name);
-        $userShop = $userShop->findOrFail($idUserShop);
+        $shop = new UserShop();
+        $shop->setConnection($this->getUser()->getRole->name);
+        $shop = $shop->findOrFail($idUserShop);
 
-        return view('userShops.show', ['userShop' => $userShop]);
+        $shop->horseList = json_decode($shop->horseList);
+        $shop->itemList = json_decode($shop->itemList);
+        $shop->infraList = json_decode($shop->infraList);
+        $shop->ridingStableList = json_decode($shop->ridingStableList);
+        $shop->horseClubList = json_decode($shop->horseClubList);
+
+        return view('usershops.show', ['shop' => $shop]);
     }
 
     /**
@@ -86,33 +125,70 @@ class UserShopController extends Controller
     {
         $this->getUser()->hasPermission(['select'], 'user_shops');
 
-        $userShop = new UserShop();
-        $userShop->setConnection($this->getUser()->getUserShop->name);
+        $shop = new UserShop();
+        $shop->setConnection($this->getUser()->getRole->name);
 
-        $userShopshop = $userShop->findOrFail($idUseShop);
+        $shop = $shop->findOrFail($idUserShop);
+        $shop->horseList = implode('/', json_decode($shop->horseList));
+        $shop->itemList = implode('/', json_decode($shop->itemList));
+        $shop->infraList = implode('/', json_decode($shop->infraList));
+        $shop->ridingStableList = implode('/', json_decode($shop->ridingStableList));
+        $shop->horseClubList = implode('/', json_decode($shop->horseClubList));
 
-        return view('userShops.edit', array(
-            'userShop' => $userShop
+        return view('usershops.edit', array(
+            'shop' => $shop
         ));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\UserShop  $userShop
+     * @param  \App\Http\Requests\UserShopRequest  $request
+     * @param  int  $userShopId
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, UserShop $userShop)
+    public function update(UserShopRequest $request, int $userShopId)
     {
         $this->getUser()->hasPermission(['update'], 'user_shops');
+        $userShop = new UserShop();
+        $userShop->setConnection($this->getUser()->getRole->name);
 
-        $userShop->setConnection($this->getUser()->getUserShop->name);
-
+        $userShop = $userShop->findOrFail($userShopId);
         $userShop->fill($request->all());
 
+        $validList = $this->validateItemLists($request->input('horseList'));
+        if (!$validList) {
+            return back()->withErrors('Please enter a valid list of ids for the horses list');
+        }
+        $userShop->horseList = json_encode($validList);
+
+        $validList = $this->validateItemLists($request->input('itemList'));
+        if (!$validList) {
+            return back()->withErrors('Please enter a valid list of ids for the items list');
+        }
+        $userShop->itemList = json_encode($validList);
+
+        $validList = $this->validateItemLists($request->input('infraList'));
+        if (!$validList) {
+            return back()->withErrors('Please enter a valid list of ids for the infrastructures list');
+        }
+        $userShop->infraList = json_encode($validList);
+
+        $validList = $this->validateItemLists($request->input('ridingStableList'));
+        if (!$validList) {
+            return back()->withErrors('Please enter a valid list of ids for the riding stables list');
+        }
+        $userShop->ridingStableList = json_encode($validList);
+
+        $validList = $this->validateItemLists($request->input('horseClubList'));
+        if (!$validList) {
+            return back()->withErrors('Please enter a valid list of ids for the horse clubs list');
+        }
+        $userShop->horseClubList = json_encode($validList);
+        $userShop->idUser = (int)$request->input('idUser');
+
         if ($userShop->save()) {
-            return redirect()->route('usershops.show', $shop->id)->with('success', 'User shop successfully updated');
+            return redirect()->route('usershops.show', $userShop->id)->with('success', 'User shop successfully updated');
         } else {
             return back()->withErrors('An error occurred while saving the user shop. Please try again later.');
         }
@@ -121,6 +197,7 @@ class UserShopController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param \Illuminate\Http\Request $request
      * @param  int  $idUserShop
      * @return \Illuminate\Http\Response
      */
@@ -129,8 +206,8 @@ class UserShopController extends Controller
         $this->getUser()->hasPermission(['delete'], 'user_shops');
 
         if ($idUserShop !== 0) {
-            $userShop = new Shop();
-            $userShop->setConnection($this->getUser()->getUserShop->name);
+            $userShop = new UserShop();
+            $userShop->setConnection($this->getUser()->getRole->name);
             $userShop = $userShop->findOrFail($idUserShop);
 
             if ($userShop->delete()) {
@@ -144,7 +221,7 @@ class UserShopController extends Controller
 
             foreach ($userShopsToDelete as $key => $userShopId) {
                 $userShop = new UserShop();
-                $userShop->setConnection($this->getUser()->getUserShop->name);
+                $userShop->setConnection($this->getUser()->getRole->name);
                 $userShop = $userShop->findOrFail($userShopId);
 
                 if ($userShop->delete()) {
@@ -162,6 +239,31 @@ class UserShopController extends Controller
             }
 
             return 'usershops';
+        }
+    }
+
+    /**
+     * Validates the received string as the items list
+     *
+     * @param string $list The items list sent in the update/store form
+     */
+    private function validateItemLists(string $list)
+    {
+        $valid = true;
+
+        $explodedItemsList = explode('/', $list);
+        foreach ($explodedItemsList as $item) {
+            $item = (int)$item;
+            if (is_int($item) && $item > 0 && $item <= 1000000) {
+                continue;
+            }
+            $valid = false;
+        }
+
+        if ($valid) {
+            return $explodedItemsList;
+        } else {
+            return false;
         }
     }
 }

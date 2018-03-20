@@ -13,7 +13,7 @@ class UserShopRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,12 @@ class UserShopRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'idUser' => 'required|integer|exists:users,id',
+            'horseList' =>'required|string',
+            'itemList' =>'required|string',
+            'infraList' =>'required|string',
+            'ridingStableList' =>'required|string',
+            'horseClubList' =>'required|string'
         ];
     }
 }
