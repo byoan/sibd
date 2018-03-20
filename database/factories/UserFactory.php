@@ -27,7 +27,7 @@ $factory->define(App\User::class, function (Faker $faker) {
         'birthDate' => $faker->date($format = 'Y-m-d', $max = 'now'),
         'website' => 'http://google.fr',
         'ipAddress' => $faker->ipv4,
-        'role' => array_rand([1, 2], 1),
+        'role' => 0,
         'sex' => array_rand(['M', 'F'], 1),
         'avatar' => $faker->imageUrl(600, 400, 'cats'),
         'inscriptionDate' => $faker->date($format = 'Y-m-d', $max = 'now'),
