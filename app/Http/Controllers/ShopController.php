@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Shop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ShopRequest;
 
 class ShopController extends Controller
 {
@@ -40,10 +41,10 @@ class ShopController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\ShopRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ShopRequest $request)
     {
         $this->getUser()->hasPermission(['insert'], 'shops');
         // Set the connection to use after having checked the permissions
@@ -140,11 +141,11 @@ class ShopController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\ShopRequest  $request
      * @param  \App\Shop  $shop
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Shop $shop)
+    public function update(ShopRequest $request, Shop $shop)
     {
         $this->getUser()->hasPermission(['update'], 'shops');
 

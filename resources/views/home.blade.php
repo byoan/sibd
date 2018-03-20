@@ -44,6 +44,7 @@
                         <p><a href="{{ route('ridingstables.index') }}">Riding stables</a></p>
                         <p><a href="{{ route('shops.index') }}">Shops</a></p>
                         <p><a href="{{ route('users.index') }}">Users</a></p>
+                        <p><a href="{{ route('usershops.index') }}">Users shops</a></p>
                         <p><a href="{{ route('weathers.index') }}">Weathers</a></p>
                         <p><a href="{{ route('weatherlists.index') }}">Weathers List</a></p>
                     </div>

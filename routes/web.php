@@ -47,6 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('ridingstables', 'RidingStableController');
     Route::resource('shops', 'ShopController');
     Route::resource('users', 'UserController');
+    Route::resource('usershops', 'UserShopController');
     Route::resource('weathers', 'WeatherController');
     Route::resource('weatherlists', 'WeatherListController');
 
