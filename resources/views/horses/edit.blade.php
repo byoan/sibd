@@ -31,10 +31,6 @@
         <textarea required class="form-control" id="description" name="description" placeholder="Enter an horse description">{{ $horse->description }}</textarea>
     </div>
     <div class="form-group">
-        <label for="family">Family</label>
-        <input required class="form-control" id="family" name="family" placeholder="Enter an infrastructure family" value="{{ $horse->family }}">
-    </div>
-    <div class="form-group">
         <label for="price">Price</label>
         <input required class="form-control" id="price" type="number" step="0.01" minlength="1" maxlength="100" name="price" placeholder="Enter an horse price" value="{{ $horse->price }}">
     </div>
@@ -48,9 +44,9 @@
     </div>
     <div class="form-group">
         <label for="generalLevel">Horse general Level</label>
-        <input required class="form-control" id="generalLevel" name="generalLevel" placeholder="Enter generalLevel">{{ $horse->generelLevel‹‹ }}</textarea>
+        <input required class="form-control" id="generalLevel" name="generalLevel" placeholder="Enter generalLevel" value="{{ $horse->generalLevel }}">
     </div>
-    
+
     <button class="btn btn-primary" type="submit">Submit</button>
 </form>
 @endsection
