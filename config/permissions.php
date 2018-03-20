@@ -17,9 +17,6 @@ return [
     'developer' => array(
         '*' => array('select', 'insert', 'update', 'delete')
     ),
-    'developer' => array(
-        '*' => array('select', 'insert', 'update', 'delete')
-    ),
     'contestAdmin' => array(
         'contest' => array('select', 'insert', 'update', 'delete')
     ),
